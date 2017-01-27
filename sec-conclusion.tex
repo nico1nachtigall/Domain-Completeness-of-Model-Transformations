@@ -1,0 +1,70 @@
+We have stated the domain completeness problem which focuses on the relationship between nested graph constraints and graph grammars.
+More precisely, domain completeness claims that a given set of nested graph constraints is more restrictive on the graph structure than (or as restrictive as) a given graph grammar.
+Therefore, domain completeness enlightens the relationship between the descriptive approach of specifying graph languages via graph constraints and the operational approach via graph grammars.
+
+In \cref{sec-dc-general}, we proved the undecidability of the domain completeness problem for plain graphs and derivative categories of graphs.
+The undecidability of the problem led to the development of an under-approximative verification approach of domain completeness in \cref{sec-dc-verification}.
+This approach is applicable in the $\M$-adhesive category $(\AGraphs_\ATGI,\M)$ of typed attributed graphs with node type inheritance.
+The termination of the verification is ensured by an upper bound of the graph size.
+By doing this, also a complete check of all graphs up to the given upper bound can be performed for verifying the language inclusion.
+However, in most cases, the presented approach is more efficient and terminates without an explicit upper bound.
+In \cref{sec-dc-general-lim} the limitations of the approach are discussed, i.e., the approach is only applicable to:
+%
+\begin{enumerate*}
+  \item graph grammars with empty start graph,
+  \item graph grammars with non-deleting productions,
+  \item graph grammars with application conditions in $\M$-normal form,
+  \item domain constraints in $\M$-normal form, and
+  \item domain constraints that are designated for general satisfaction.
+\end{enumerate*}
+%
+However, this setting is suitable for model transformations and synchronisations based on the theory of triple graph grammars (TGGs).
+
+Consequently in \cref{sec-dom-compl-mt-synch}, the results of domain completeness from \cref{sec-dc-verification} are applied to verify the domain completeness of model transformations and model synchronisations.
+%
+
+In \cref{sec-further-appl}, further applications for the presented verification approach are discussed.
+In \cref{sec-compl-software-trans}, a coding of context-free word grammars in EBNF notation into type graphs and graph constraints is given such that the language of derivation trees over the EBNF grammar is equivalent (isomorphic) to the graph language over the derived type graph and graph constraints.
+This result can be used for the verification of domain completeness of software translations and synchronisations (cf. also \cref{sec-compl-software-synch}).
+Apart from that, the verification of domain completeness of software translations and synchronisations are direct extensions of the results for verifying domain completeness of model transformations and synchronisations.
+Due to the generality of the results and the existing formal framework, these immediate steps are possible.
+
+If the EBNF grammar of the programming language of programs that are translated is ambiguous, then there may exist several derivation trees for each program written in the language.
+Therefore, the approach for verifying the completeness of software translations is particularly suitable for unambiguous EBNF grammars.
+%
+For the coding in \cref{sec-compl-software-trans}, graph constraints are needed that are able to express infinite structures in graphs, i.e., regular paths.
+Therefore, we developed recursive graph constraints in \cref{sec-dc-general-rec} and showed how they can be used for domain completeness verifications that terminate by presenting a construction for deriving finite constraints from infinite recursive graph constraints.
+Recursive graph schemata and derived recursive graph constraints can also be used for specifying static semantics of models, e.g., static semantics of programs as discussed in \cref{sec-compl-static-sem}.
+%
+Furthermore, in \cref{sec-dc-general-res}, we discuss how to restrict the source domain of model transformations and synchronisations to relevant domain elements.
+In particular, this involves the restriction of the domain type graph and type constraints to relevant domain elements only.
+%
+In \cref{sec-compl-software-trans}, we use the results of domain restrictions in order to translate only the class definitions in source code to UML class diagrams while neglecting the other syntactic aspects in the programs.
+%
+In \cref{sec-compl-oper-sem}, we address that the presented approach for verifying domain completeness can also be used to verify the completeness of operational (dynamic) token semantics.
+The operational semantics are given by a set of graph transformation rules where models are simulated by applying the rules.
+The rules assign a token to some part of the graph (model) and re-assign it to another part of the graph, therefore performing a semantic step.
+The presented approach is not directly applicable to operational token semantics, since, the rules are deleting.
+However, based on a given example it is clarified how deleting token rules can be interpreted as non-deleting rules such that the approach is applicable.
+
+Nested graph constraints were introduced in \cite{DBLP:journals/mscs/HabelP09} in order to ensure that a given graph grammar is more restrictive on the graph structure than (or as restrictive as) a given set of nested graph constraints, i.e., the opposite direction of domain completeness.
+More precisely, a given set of nested graph constraints is translated into application conditions of rules of a given graph grammar such that it is guaranteed that all transformations via the rules of the grammar lead to graphs that satisfy the graph constraints.
+A similar approach to recursive graph constraints in \cref{sec-dc-general-rec} was introduced by adaptive star grammars \cite{Drewes2006}.
+However, to the best of our knowledge there is no construction to obtain finite constraints from infinite ones which is essential for the termination of the verification of domain completeness.
+The results for domain restrictions in \cref{sec-dc-general-res} are basically an extension of the results in \cite{DBLP:journals/corr/abs-1209-1436} from initial to general satisfaction of graph constraints.
+The results for domain completeness in \cref{sec-dom-compl-mt-synch} are based on the formal frameworks of model transformations and synchronisations in \cite{FAGT2} which are originated from the delta-lens framework \cite{DBLP:conf/icmt/DiskinXC10,DBLP:conf/models/DiskinXCEHO11,DBLP:conf/models/DiskinXC10,DBLP:conf/staf/JohnsonR15}.
+In view of \cref{sec-compl-software-trans-mapping}, while context-free (EBNF) word grammars allow a generative approach to obtain the language of all syntax trees that are derivable from the grammar, type graphs together with graph constraints, together forming a language meta-model, allow a declarative approach for defining this language of abstract syntax graphs.
+For existing work on deriving meta-models from word grammars we refer to \cite{DBLP:conf/models/BergmayrW13}.
+
+In future work the approach should be extended from the $\M$-adhesive category $(\AGraphs_\ATGI,\M)$ of typed attributed graphs with node type inheritance to the general framework of $\M$-adhesive categories which comprises a variety of other (graph-like) structures.
+Basically, this includes the development of a notion of boolean-valued marking of objects in $\M$-adhesive categories which was started in \cite{HEOG10a} and need to be extended to triple rules with application conditions.
+As the presented verification approach is an approximation only, the approach is open for optimisations with regard to different application scenarios.
+Possible starting points for optimisations are presented by the limitations of the approach in \cref{sec-dc-general-lim}.
+The extension of the approach to graph grammars with deleting productions seems to be of most importance while an extension to grammars with non-empty start graphs and application conditions not in $\M$-normal form seems to be interesting but of less importance.
+Finally, the approach for verifying domain completeness of model transformations and synchronisations can be extended to a multi-model environment \cite{DBLP:conf/icmt/TrollmannA15} without dedicated source and target models but with an arbitrary number of interlinked models.
+%
+The sufficient conditions for ensuring the language inclusion of restricted graph constraints and their originals are rather strict and may be refined in future work.
+Finally, the entire approach for verifying domain completeness should be evaluated based on a case study of relevant size with the help of an implementation in future work.
+The existing HenshinTGG tool \cite{HenshinTGG,DBLP:conf/staf/0001NBEG14} represents a suitable basis for implementing the approach in order to enable automatic tool support for verifying domain completeness in the future.
+The PIL2SPELL project \cite{DBLP:conf/icmt/0001GNEBMPEE14} seems to be an appropriate real world scenario for evaluating the approach concerning the verification of the completeness of software translations.
+In PIL2SPELL, satellite control procedures were translated between different programming languages.

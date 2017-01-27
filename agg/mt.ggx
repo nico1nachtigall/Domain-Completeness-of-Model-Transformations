@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document version="1.0">
+    <GraphTransformationSystem ID="I1" directed="true" name="GraGra" parallel="true">
+        <TaggedValue Tag="AttrHandler" TagValue="Java Expr">
+            <TaggedValue Tag="Package" TagValue="java.lang"/>
+            <TaggedValue Tag="Package" TagValue="java.util"/>
+        </TaggedValue>
+        <TaggedValue Tag="CSP" TagValue="true"/>
+        <TaggedValue Tag="injective" TagValue="true"/>
+        <TaggedValue Tag="dangling" TagValue="true"/>
+        <TaggedValue Tag="identification" TagValue="true"/>
+        <TaggedValue Tag="NACs" TagValue="true"/>
+        <TaggedValue Tag="PACs" TagValue="true"/>
+        <TaggedValue Tag="GACs" TagValue="true"/>
+        <TaggedValue Tag="breakAllLayer" TagValue="true"/>
+        <TaggedValue Tag="showGraphAfterStep" TagValue="true"/>
+        <TaggedValue Tag="TypeGraphLevel" TagValue="ENABLED"/>
+        <Types>
+            <NodeType ID="I2" abstract="false" name="Attr%:RECT:java.awt.Color[r=0,g=0,b=0]:[NODE]:">
+                <AttrType ID="I4" attrname="name" typename="String" visible="true"/>
+                <AttrType ID="I5" attrname="tr" typename="boolean" visible="true"/>
+            </NodeType>
+            <NodeType ID="I6" abstract="false" name="Class%:RECT:java.awt.Color[r=0,g=0,b=0]:[NODE]:">
+                <AttrType ID="I8" attrname="tr" typename="boolean" visible="true"/>
+            </NodeType>
+            <EdgeType ID="I9" abstract="false" name="a%:SOLID_LINE:java.awt.Color[r=0,g=0,b=0]:[EDGE]:">
+                <AttrType ID="I11" attrname="tr" typename="boolean" visible="true"/>
+            </EdgeType>
+            <Graph ID="I12" kind="TG" name="TypeGraph">
+                <Node ID="I13" type="I2">
+                    <NodeLayout X="79" Y="123"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Node ID="I15" type="I6">
+                    <NodeLayout X="83" Y="200"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Edge ID="I17" source="I15" target="I13" type="I9">
+                    <EdgeLayout bendX="0" bendY="0"
+                        sourceMultiplicityOffsetX="-5"
+                        sourceMultiplicityOffsetY="16"
+                        targetMultiplicityOffsetX="-5"
+                        targetMultiplicityOffsetY="8" textOffsetX="0" textOffsetY="-22"/>
+                    <additionalLayout aktlength="200" force="10" preflength="200"/>
+                </Edge>
+            </Graph>
+        </Types>
+        <Graph ID="I19" kind="HOST" name="Graph"/>
+        <Rule ID="I20" formula="true" name="InstantiableClass2Table-FT">
+            <Graph ID="I22" kind="LHS" name="LeftOf_InstantiableClass2Table">
+                <Node ID="I23" type="I2">
+                    <Attribute constant="true" type="I4">
+                        <Value>
+                            <string>oid</string>
+                        </Value>
+                    </Attribute>
+                    <Attribute constant="true" type="I5">
+                        <Value>
+                            <boolean>false</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="64" Y="35"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Node ID="I27" type="I6">
+                    <Attribute constant="true" type="I8">
+                        <Value>
+                            <boolean>false</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="52" Y="108"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Edge ID="I30" source="I27" target="I23" type="I9">
+                    <Attribute constant="true" type="I11">
+                        <Value>
+                            <boolean>false</boolean>
+                        </Value>
+                    </Attribute>
+                    <EdgeLayout bendX="0" bendY="0" textOffsetX="0" textOffsetY="-22"/>
+                    <additionalLayout aktlength="200" force="10" preflength="200"/>
+                </Edge>
+            </Graph>
+            <Graph ID="I33" kind="RHS" name="RightOf_InstantiableClass2Table">
+                <Node ID="I34" type="I2">
+                    <Attribute constant="true" type="I4">
+                        <Value>
+                            <string>oid</string>
+                        </Value>
+                    </Attribute>
+                    <Attribute constant="true" type="I5">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="85" Y="35"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Node ID="I38" type="I6">
+                    <Attribute constant="true" type="I8">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="83" Y="128"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Edge ID="I41" source="I38" target="I34" type="I9">
+                    <Attribute constant="true" type="I11">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <EdgeLayout bendX="0" bendY="0" textOffsetX="0" textOffsetY="-22"/>
+                    <additionalLayout aktlength="200" force="10" preflength="200"/>
+                </Edge>
+            </Graph>
+            <Morphism comment="Formula: true" name="InstantiableClass2Table-FT">
+                <Mapping image="I34" orig="I23"/>
+                <Mapping image="I38" orig="I27"/>
+                <Mapping image="I41" orig="I30"/>
+            </Morphism>
+            <TaggedValue Tag="layer" TagValue="0"/>
+            <TaggedValue Tag="priority" TagValue="0"/>
+        </Rule>
+        <Rule ID="I44" formula="true" name="Singleton2Empty-FT">
+            <Graph ID="I46" kind="LHS" name="LeftOf_Singleton2Empty">
+                <Node ID="I47" type="I2">
+                    <Attribute constant="true" type="I4">
+                        <Value>
+                            <string>instance</string>
+                        </Value>
+                    </Attribute>
+                    <Attribute constant="true" type="I5">
+                        <Value>
+                            <boolean>false</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="102" Y="37"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Node ID="I51" type="I6">
+                    <Attribute constant="true" type="I8">
+                        <Value>
+                            <boolean>false</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="103" Y="160"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Edge ID="I54" source="I51" target="I47" type="I9">
+                    <Attribute constant="true" type="I11">
+                        <Value>
+                            <boolean>false</boolean>
+                        </Value>
+                    </Attribute>
+                    <EdgeLayout bendX="0" bendY="0" textOffsetX="0" textOffsetY="-22"/>
+                    <additionalLayout aktlength="200" force="10" preflength="200"/>
+                </Edge>
+            </Graph>
+            <Graph ID="I57" kind="RHS" name="RightOf_Singleton2Empty">
+                <Node ID="I58" type="I2">
+                    <Attribute constant="true" type="I4">
+                        <Value>
+                            <string>instance</string>
+                        </Value>
+                    </Attribute>
+                    <Attribute constant="true" type="I5">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="103" Y="60"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Node ID="I62" type="I6">
+                    <Attribute constant="true" type="I8">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="90" Y="195"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Edge ID="I65" source="I62" target="I58" type="I9">
+                    <Attribute constant="true" type="I11">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <EdgeLayout bendX="0" bendY="0" textOffsetX="0" textOffsetY="-22"/>
+                    <additionalLayout aktlength="200" force="10" preflength="200"/>
+                </Edge>
+            </Graph>
+            <Morphism comment="Formula: true" name="Singleton2Empty-FT">
+                <Mapping image="I58" orig="I47"/>
+                <Mapping image="I62" orig="I51"/>
+                <Mapping image="I65" orig="I54"/>
+            </Morphism>
+            <TaggedValue Tag="layer" TagValue="0"/>
+            <TaggedValue Tag="priority" TagValue="0"/>
+        </Rule>
+        <Rule ID="I68" formula="true" name="Attr2Column-FT">
+            <Parameter name="x" type="String"/>
+            <Graph ID="I70" kind="LHS" name="LeftOf_Attr2Column">
+                <Node ID="I71" type="I2">
+                    <Attribute type="I4" variable="true">
+                        <Value>
+                            <string>x</string>
+                        </Value>
+                    </Attribute>
+                    <Attribute constant="true" type="I5">
+                        <Value>
+                            <boolean>false</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="111" Y="25"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Node ID="I75" type="I6">
+                    <Attribute constant="true" type="I8">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="108" Y="178"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Edge ID="I78" source="I75" target="I71" type="I9">
+                    <Attribute constant="true" type="I11">
+                        <Value>
+                            <boolean>false</boolean>
+                        </Value>
+                    </Attribute>
+                    <EdgeLayout bendX="0" bendY="0" textOffsetX="0" textOffsetY="-22"/>
+                    <additionalLayout aktlength="200" force="10" preflength="200"/>
+                </Edge>
+            </Graph>
+            <Graph ID="I81" kind="RHS" name="RightOf_Attr2Column">
+                <Node ID="I82" type="I2">
+                    <Attribute type="I4" variable="true">
+                        <Value>
+                            <string>x</string>
+                        </Value>
+                    </Attribute>
+                    <Attribute constant="true" type="I5">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="147" Y="26"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Node ID="I86" type="I6">
+                    <Attribute constant="true" type="I8">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <NodeLayout X="156" Y="206"/>
+                    <additionalLayout age="0" force="10" frozen="true" zone="50"/>
+                </Node>
+                <Edge ID="I89" source="I86" target="I82" type="I9">
+                    <Attribute constant="true" type="I11">
+                        <Value>
+                            <boolean>true</boolean>
+                        </Value>
+                    </Attribute>
+                    <EdgeLayout bendX="0" bendY="0" textOffsetX="0" textOffsetY="-22"/>
+                    <additionalLayout aktlength="200" force="10" preflength="200"/>
+                </Edge>
+            </Graph>
+            <Morphism comment="Formula: true" name="Attr2Column-FT"/>
+            <TaggedValue Tag="layer" TagValue="0"/>
+            <TaggedValue Tag="priority" TagValue="0"/>
+        </Rule>
+    </GraphTransformationSystem>
+</Document>

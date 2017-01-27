@@ -1,0 +1,26 @@
+\cref{sec-gen-intro-models} already highlighted the importance of models in information science especially in the model-driven development of software and systems in general.
+It was stated and supported by different concrete examples that models are created and intended to be used in the context of different problem domains where they capture requirements on the intended system's application and use from different perspectives.
+The requirements may change over time, need to be refined or may be inferred from requirements that are formulated in other domains.
+This implies that models may be transformed either within the same domain-specific modelling language (DSL) or into models in another language.
+Furthermore, model updates may be synchronised between interrelated models and different domains.
+
+For example, the net in \cref{fig:sec-gen-intro-models:models} (left) can be completely inferred from the statechart (right).
+A corresponding model transformation from models that are formulated in the DSL of UML statecharts into models that are formulated in the DSL of place/transition nets is given in \cite{Ehrig:2006:FAG:1121741}.
+Vice versa, UML statecharts cannot be completely inferred from place/transition nets in any cases, since, the statecharts may contain information (e.g., the explicit separation into concurrently operating sub-systems (orthogonal regions)) that are not available in (flat) nets. 
+However, a transformation from place/transition nets into statecharts can be used in order to obtain initial statechart models from existing nets and where the statecharts are refined at a later step, e.g., by adding orthogonal regions.
+While a transformation from UML statecharts into place/transition nets may be used for simulating the behaviour of the model based on the net \cite{conf/seke/HuS04}, the reverse transformation may be used in order to obtain a more readable model in the form of a statechart from the net.
+
+The same is true for the examples in \cref{fig:sec-gen-intro-models:models2}.
+UML class diagrams and entity-relationship diagrams share a common set of knowledge while containing exclusive information at the same time.
+While both share the knowledge of domain entitites (\code{Consumer}, \code{Supplier} and \code{Order}) and their interrelationships, class diagrams may additionally capture operations for each entity and entity-relationship diagrams may make the interrelationships more explicit as well as may mark specific attributes as unique instance identifiers (primary keys).
+However, analogously to the place/transition net-statechart scenario, it is common practice to derive entity-relationship diagrams from class diagrams and vice versa in order to obtain initial models in the one domain from existing models in the other domain.
+This transformation is also referred to as the object-relational mapping between the concepts in object-oriented programming languages and concepts in relational database systems.
+
+By this means, each class diagram may be in relation with a corresponding entity-relationship diagram.
+Therefore, a model update on a class diagram need to be synchronised with its entity-relationship diagram and vice versa.
+For example, by changing the attribute of entity \code{Order} in \cref{fig:sec-gen-intro-models:models2} (left) from \code{id} to \code{uid}, in order to emphasize the uniqueness of the identifier, this change must lead to a corresponding update in \cref{fig:sec-gen-intro-models:models2} (right).
+
+Note that especially if we think of model-being as a result of a judgement (cf. \cref{sec-gen-intro-models}), ``Everything is a Model'' \cite{Bezivin2005} or more precisely, everything can be construed as a model, be it a mental concept or a physical entity.
+In this thesis, we focus on visual models in the form given in \cref{fig:sec-gen-intro-models:models,fig:sec-gen-intro-models:models2}, their transformation and synchronisation.
+The typical example of model-to-model transformations, the transformation from UML class diagrams to relational database models (CD2RDBM) \cite{FAGT2}, serves as the running example throughout all chapters.
+In \cref{sec-gen-intro-mt-ms}, we review general basic notions of model transformations and synchronisations in more detail.

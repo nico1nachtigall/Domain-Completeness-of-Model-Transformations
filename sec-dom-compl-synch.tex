@@ -1,0 +1,47 @@
+A model synchronisation is domain complete if each update on a source graph $G^S \in \Lang(C^S)$ leading to a graph $G'^S$ can be completely propagated to the target domain in the sense that all elements of $G'^S$ are in correspondence with elements in the target domain, i.e., all elements in $G'^S$ are translated to elements in the target domain.
+
+\begin{definition}[Domain Completeness of Model Synchronisations]
+\label{def:sec-dom-compl-synch:dc}
+\index{model synchronisation!domain completeness}
+Let $C^S$ be the set of source domain constraints and $\Lang(C^S)$ be the source domain language of graphs. 
+Furthermore, let $\TGG$ be a triple graph grammar that specifies the translation of graphs in $\Lang(C^S)$ into graphs of the target domain.
+Let $u\colon M^S \to M'^S$ with $M^S,M'^S \in \Lang(C^S)$ be a model update from a model $M^S$ to a model $M'^S$ both in the source domain.
+\emph{The synchronisation is domain complete}, if for each such update $u$ and triple graph $M=(M^S \gets M^C \to M^T)$ the forward propagation operation $\fPpg(M,u)=(M',u')$ leads to an update $u'\colon M^T \to M'^T$ in the target domain and integrated model $M'=(M'^S \gets M'^C \to M'^T)$ such that there is a model transformation sequence $(M'^S,M_0 \Trans{\tr^*_\FT} M_n,M'^T)$ based on the forward translation rules of $\TGG$ with $M_0=(\Att^\False(M'^S) \gets \varnothing \to \varnothing)$ and $M_n=(\Att^\True(M'^S) \gets M'^C \to M'^T)$.
+\envEndMarker
+\end{definition}
+
+Based on the ``classical" syntactical completeness and correctness of model transformations and synchronisations by triple graph grammars based on forward translation rules (cf. Cor. 8.5 \& Thm 9.25 in \cite{FAGT2}) and the decomposition property of TGGs, the domain completeness of model synchronisations can be reformulated as follows.
+While \cref{def:sec-dom-compl-synch:dc} reflects the intuitive meaning behind complete synchronisations, \cref{prop:sec-dom-compl-synch:compl} expresses completeness in terms of a language inclusion which can be verified by using the verification techniques for domain completeness in \cref{sec-dom-compl-mt,thm:sec-dom-compl-mt-without-acs}.
+Therefore, both formulations of completeness in \cref{def:sec-dom-compl-synch:dc,prop:sec-dom-compl-synch:compl} are equivalent.
+
+\begin{theorem}[Domain Completeness of Model Synchronisations]
+\label{prop:sec-dom-compl-synch:compl}
+Let $\Synch(\TGG)$ be the derived TGG synchronisation framework with forward propagation operation $\fPpg$ such that the sets of operational translation rules derived from $\TGG$ are kernel-grounded and deterministic.
+Then, the synchronisation via $\fPpg$ is domain complete according to \cref{def:sec-dom-compl-synch:dc} if and only if $\Lang(C^S) \subseteq \Lang(\TGG)^S$.
+\envEndMarker
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+  \item[\textbf{``$\Rightarrow$''}] Let $u\colon M^S \trans{\id} M^S$ be the identical update with $M^S \in \Lang(C^S)$ and $M=(M^S \gets M^C \to M^T)$.
+  Furthermore, by ``classical" correctness of model synchronisations $\fPpg(M,u)=(M,u)$ and there is a model transformation sequence $(M^S,M_0 \Trans{\tr^*_{\FT}} M_n,M^T)$ based on forward translation rules of $\TGG$.
+  By ``classical'' correctness of model transformations, there is $(M^S \gets M'^C \to M^T) \in \Lang(\TGG)$ implying further that $M^S \in \Lang(\TGG)^S$ (cf. Def. 8.3 in \cite{FAGT2}).
+  Thus, $\Lang(C^S) \subseteq \Lang(\TGG)^S$.
+  \item[\textbf{``$\Leftarrow$''}] 
+  Let $u\colon M^S \to M'^S$ with $M^S,M'^S \in \Lang(C^S)$ implying that $M^S,M'^S \in \Lang(\TGG)^S$.
+  Furthermore, let $M=(M^S \gets M^C \to M^T)$.
+  By ``classical'' completeness of model synchronisations $\fPpg(M,u)=(M',u')$ with $M'=(M'^S \gets M'^C \to M'^T)$ and $u'\colon M^T \to M'^T$.
+  By ``classical'' correctness of model synchronisations $M' \in \Lang(\TGG)$, i.e., there is $\varnothing \Trans{\tr^*} M'$ via rules in $\TGG$.
+  By the decomposition property of TGGs, there is a corresponding match-consistent triple transformation sequence $M_{0,0}=\varnothing \Trans{\tr_{1,S}} M_{1,0} \Trans{} \ldots \Trans{\tr_{n,S}} M_{n,0} \Trans{\tr_{1,F}} M_{n,1} \Trans \ldots \Trans{\tr_{n,F}} M'$ with $M_{n,0}=(M'^S \gets \varnothing \to \varnothing)$ (cf. Def. 7.21 in \cite{FAGT2}).
+  By definition there is there is a source consistent triple transformation $M_{n,0} \Trans{\tr^*_F} M'$ (cf. Def. 7.18 in \cite{FAGT2}).
+  Therefore by Def. 7.23 in \cite{FAGT2}, there is a model transformation sequence $(M'^S,M_{n,0} \Trans{\tr^*_F} M',M'^T)$.
+  By Fact 7.36 in \cite{FAGT2}, there is a model transformation sequence $(M'^S,M'_0 \Trans{\tr^*_{\FT}} M'_n,M'^T)$ based on forward translation rules of $\TGG$ with $M'_0=(\Att^\False(M'^S) \gets \varnothing \to \varnothing)$ and $M'_n=(\Att^\True(M'^S) \gets M'^C \to M'^T)$.
+\end{enumerate}
+\end{proof}
+
+\begin{example}[Domain Completeness of Model Synchronisations]
+For the source domain constraints $C^S$ of UML class diagrams and triple graph grammar CD2RDBM for translating UML class diagrams into relational database models, in \cref{sec-dom-compl-mt,ex:sec-dom-compl-mt:domcp} we have already shown that $\Lang(C^S) \subseteq \Lang(CD2RDBM)^S$.
+Therefore, the model synchronisation for propagating updates from UML class diagrams to relational database models is domain complete by \cref{prop:sec-dom-compl-synch:compl}.
+Thus, each update on UML class diagrams that respects domain constraints $C^S$ can be propagated to a corresponding update on interlinked relational database models.
+\envEndMarker
+\end{example}

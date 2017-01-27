@@ -1,0 +1,62 @@
+Model transformations and synchronisations based on TGGs share the following important properties:
+\begin{enumerate*}
+\item efficiency,
+\item TGGs allow intuitive and maintainable tranformation specifications with sufficient expressiveness,
+\item bidirectionality,
+\item type consistency,
+\item termination,
+\item functional behaviour (termination + confluence), and
+\item information preservation (cf. Sec. 3.1 in \cite{FAGT2}).
+\end{enumerate*}
+% \begin{enumerate}
+%   \item \textbf{Consistency:} For a model transformation (synchronisation) from models of (model updates in) a source DSL $\Lang^S$ into models of (model updates in) a target DSL $\Lang^T$, the model transformation specification have to be in accordance with the meta-models of languages $\Lang^S$ and $\Lang^T$ such that the specification can be executed on the set of source models (model updates) (cf. \cref{sec-gen-intro-mt}).
+%   In the formal setting of model transformations based on TGGs in \cref{sec-mt-tgg}, this property holds by definition.
+%   \item \textbf{Termination:} For each source model (model update) as input, the transformation (synchronisation) terminates with some output.
+%   According to Def. 7.34 in \cite{FAGT2}, a model transformation in the sense of \cref{def:sec-mt-tgg:mt_ft} is \emph{terminating}, if there are no infinite forward translation sequences starting with $G'_0=(\Att^\False(G^S) \gets \varnothing \to \varnothing)$ for some source graph $G^S$ in the source domain.
+%   As forward translation sequences changes the values of translation attributes of elements from $\False$ to $\True$ at each step, for finite inputs and non-trivial translation rules it is ensured that the transformation and synchronisation terminates (cf. Fact 8.13 in \cite{FAGT2}).
+%   \item \textbf{Confluence:} For each source model (model update) as input, if the transformation (synchronisation) terminates with some output, then the output is unique (up to isomorphism), i.e., the transformation (synchronisation) always leads to the same result for a given input.
+%   Global confluence of the transformation (synchronisation) can be verified by verifying strict confluence of critical pairs w.r.t. the given TGG (cf. Thm. 8.29 in \cite{FAGT2}).
+%   \item \textbf{Functional Behaviour:} Functional behaviour combines the criterions of termination and confluence - For each source model (model update) as input, the transformation (synchronisation) terminates and returns a unique result.
+%   \item \textbf{Information Preservation:} For a model transformation from source to target domain, this transformation is also used from target to source such that for each forward transformation starting at source model $G^S$ the backward transformation leads to $G^S$ again and vice versa.
+%   Therefore, the transformation covers information in the source domain only that are also contained in the target domain and vice versa.
+%   For technical details we refer to Def. 8.35 in \cite{FAGT2} and \cite{DBLP:conf/fase/EhrigEEHT07}.
+%   For model synchronisations the concept of information preservation over both domains is expressed by the (weak) invertability property of model synchronisations (cf. Fig. 9.5 in \cite{FAGT2}).
+%   \item \textbf{Syntactical Correctness:} For each input in the source domain the model transformation (synchronisation) has to lead an outpout that conforms to the meta-model of the target domain.
+%   \item \textbf{Semantic Correctness:} The semantics of the source input model has to be preserved or reflected by the semantics of the resulting target model of the model transformation (synchronisation).
+%   \item \textbf{Syntactical Completeness:} The model transformation (synchronisation) can be applied on each model (model update) of the source domain.
+% \end{enumerate}
+Two further essential properties for the results in \cref{sec-dom-compl-mt,sec-dom-compl-mt-synch} are syntactical correctness and completeness referred to as ``classical" correctness and completeness to not confuse with domain completeness.
+Syntactical correctness means that for each input in the source domain, if the model transformation (synchronisation) leads to an output, then the output conforms to the meta-model of the target domain.
+Syntactical completeness means that the model transformation (synchronisation) can be applied on each model (model update) in the source domain.
+
+\begin{definition}[``Classical" Syntactical Correctness and Completeness of Model Transformations (Def. 8.3 in \cite{FAGT2})]
+\label{def:sec-gen-intro-compl:classical_corr_compl_mt}
+\index{model transformation!''classical'' syntactical correctness}
+\index{model transformation!''classical'' syntactical completeness}
+A model transformation $\MT\colon \Lang(\TG^S) \TransMT \Lang(\TG^T)$ based on forward rules is
+\begin{enumerate}
+  \item \emph{syntactically correct} if for each model transformation sequence $(G^S,G_0 \Trans{\tr^*_F} G_n,G^T)$ there is $G \in \Lang(\TGG)$ with $G=(G^S \gets G^C \to G^T)$ implying further that $G^S \in \Lang(\TGG)^S$ and $G^T \in \Lang(\TGG)^T$, and it is
+  \item \emph{syntactically complete} if for each $G^S \in \Lang(\TGG)^S$ there is $G=(G^S \gets G^C \to G^T) \in \Lang(\TGG)$ with a model transformation sequence $(G^S,G_0 \Trans{\tr^*_F} G_n,G^T)$ and $G_n=G$.
+  The backward direction is defined analogously.
+  \envEndMarker
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[``Classical" Syntactical Correctness and Completeness of Model Synchronisations (Fig. 9.5 in \cite{FAGT2})]
+\index{model synchronisation!''classical'' syntactical correctness}
+\index{model synchronisation!''classical'' syntactical completeness}
+A forward model synchronisation via $\fPpg$ is
+\begin{enumerate}
+  \item \emph{syntactically correct} if for all consistently integrated models $M=(M^\SRC \gets M^\C \to M^\T) \in \Lang(\TGG)$ and source model updates $u\colon M^\SRC \gets H^\SRC \to M'^\SRC,u' \in \Delta^S,M'^\SRC \in \Lang(\TGG)^\SRC$ it holds that $\fPpg(M,\id^S)=(M,\id^T)$ and $\fPpg(M,u)=(M',u')$ such that $M'=(M'^\SRC \gets M'^\C \to M'^\T)$ and $M' \in \Lang(\TGG)$, if $\fPpg$ yields a result, and it is
+  \item \emph{syntactically complete} if $\fPpg$ can be applied on each input integrated models $M \in \Lang(\TGG)$ and source model updates $u \in \Delta^S$ and it always yields a result for any valid input.
+  \envEndMarker
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[``Classical" Syntactical Correctness and Completeness]
+\label{rem:sec-gen-intro-compl:classical_corr_compl_mt}
+According to Thm. 8.4 and Cor. 8.5 in \cite{FAGT2}, each model transformation $\MT$ based on forward (translation) rules is ``classically" syntactically correct and complete.
+For forward translation rules, each model transformation sequence $(G^S,G_0 \Trans{\tr^*_F} G_n,G^T)$ based on forward rules in \cref{def:sec-gen-intro-compl:classical_corr_compl_mt} is substituted by a corresponding model transformation sequence $(G^S,G'_0 \Trans{\tr^*_\FT} G'_n,G^T)$ based on forward translation rules.
+According to Thm. 9.25 in \cite{FAGT2}, $\fPpg$ is syntactically correct and complete for kernel-grounded and deterministic sets of operational rules $\TR_\CC$ and $\TR_\FT$.
+\envEndMarker
+\end{remark}

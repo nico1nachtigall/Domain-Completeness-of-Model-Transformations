@@ -1,0 +1,218 @@
+In the following, we review the notion of $\M$-adhesive categories as a generalisation of the category of typed attributed graphs.
+For a short introduction to category theory we refer to \cite{Ehrig:2006:FAG:1121741} and for a more detailed view we refer to \cite{Ehrig:1990:FAS:77299,Adamek:1990:ACC:78162}.
+
+\begin{remark}[Basic Notions of Category Theory \& Category $\AGraphs_\ATGI$]
+\label{rem:sec-gt-M-adh}
+\emph{A category $\cat{C}=(\ob_\cat{C},\morB_\cat{C},\circ,\id)$}\index{category} is defined by a class $\ob_\cat{C}$ of objects, a set $\morB_\cat{C}$ of morphisms $f\colon A \to B$ between objects $A,B \in \ob_\cat{C}$, for all objects $A,B,C \in \ob_\cat{C}$ and morphisms $f\colon A \to B,g\colon B \to C \in \morB_\cat{C}$ a composition $g \circ f \in \morB$, and for each object $A \in \ob_\cat{C}$ an identity morphism $\id_A\colon A \to A \in \morB_\cat{C}$ such that
+\begin{enumerate*}
+\item [``Associativity:''] For all objects $A,B,C,D \in \ob_\cat{C}$ and morphisms $f\colon A \to B,g\colon B \to C,h\colon C \to D \in \morB_\cat{C}$ it holds that $(h \circ g) \circ f=h \circ (g \circ f)$, and
+\item [``Identity:''] For all objects $A,B \in \ob_\cat{C}$ and morphisms $f\colon A \to B \in \morB_\cat{C}$ it holds that $f \circ \id_A=f$ and $\id_B \circ f=f$ (cf. Def. A.1 in \cite{Ehrig:2006:FAG:1121741}).
+\end{enumerate*}
+A functor \index{functor} $F\colon \cat{C} \to \cat{D}$ is a mapping from objects and morphisms of category \cat{C} to objects and morphisms of category \cat{D} which is compatible with composition and the identities (cf. A.6 in \cite{Ehrig:2006:FAG:1121741}).
+Inclusions $i\colon A \to B$ are morphisms with $i(A)=A$\index{inclusion}.
+With \emph{mono- epi- and iso-morphisms}\index{morphism!monomorphism}\index{morphism!epimorphism}\index{morphism!isomorphism} we denote special types of morphisms in categories $\cat{C}$.
+Intuitively, an isomorphism is a morphism between two objects of the same structure that additionally preserves this structure.
+According to Def. A.9 in \cite{Ehrig:2006:FAG:1121741}, morphism $f\colon A \to B \in \morB_\cat{C}$ is an isomorphism, if there exists an inverse morphism $f^{-1}\colon B \to A \in \morB_\cat{C}$ such that $f^{-1} \circ f=\id_A$ and $f \circ f^{-1}=\id_B$.
+In this context, the inverse morphism $f^{-1}$ is unique and also an isomorphism (cf. Rem. A.10 in \cite{Ehrig:2006:FAG:1121741}) and the composition $i_2 \circ i_1$ of two isomorphisms $i_1,i_2$ is again an isomorphism.
+We write $G \cong G'$ and say that $G$ is isomorphic to $G'$, if there exists an isomorphism $i\colon G \to G'$.
+According to Def. A.12 in \cite{Ehrig:2006:FAG:1121741}, mono- and epi-morphisms are defined as follows.
+A morphism $h\colon B \to C \in \morB_\cat{C}$ is a monomorphism, if for all morphisms $f,g\colon A \to B \in \morB_\cat{C}$ it holds that $h \circ f=h \circ g$ implies $f=g$.
+Conversely, a morphism $f\colon A \to B \in \morB_\cat{C}$ is an epimorphism, if for all morphisms $g,h\colon B \to C \in \morB_\cat{C}$ it holds that $g \circ f=h \circ f$ implies $g=h$.
+Note that an isomorphism is both an epi- and monomorphism but a morphism that is an epi- and monomorphism must not be an isomorphism in general, since, the inverse morphism may not exist.
+According to Def. A.16 in \cite{FAGT2}, a morphism pair $(f_1\colon A_1 \to B,f_2\colon A_2 \to B)$ is jointly epimorphic\index{morphism!epimorphism!jointly}, if for all morphisms $g,h\colon B \to C$ it holds that $g \circ f_i=h \circ f_i$ for $i=1,2$ implies $g=h$.
+Given the category $\AGraphs_\ATGI$\index{category!$\AGraphs_\ATGI$} with all typed attributed graphs over attributed type graph $\ATGI$ with node type inheritance as objects and all typed attributed graph morphisms between them as morphisms where furthermore, the identities are given by the componentwise identities on nodes, edges, attributes and algebras and the composition $g \circ f$ is given by $g(f(x))$ componentwise for all nodes, edges, attributes and elements $x$ of carrier sets in the corresponding algebra (cf. \cref{sec-gt-graphs,def:sec-gt-graphs:typed_attr_graphs}).
+Then, the monomorphisms\index{category!$\AGraphs_\ATGI$!monomorphism} are exactly those morphisms that are componentwise injective, the epimorphisms\index{category!$\AGraphs_\ATGI$!epimorphism} are exactly those morphisms that are componentwise surjective and isomorphisms\index{category!$\AGraphs_\ATGI$!isomorphism} are exactly those morphisms that are componentwise bijective (i.e., both injective and surjective) (cf. Fact 2.15 in \cite{Ehrig:2006:FAG:1121741}).
+The jointly epimorphic pairs of morphisms are exactly those pairs that are together surjective.
+Basic constructions in categories are pushouts and pullbacks.\index{pushout}\index{pullback}
+A pushout $B +_A C$ is the gluing of objects $B,C$ via common sub-object $A$.
+In $\AGraphs_\ATGI$, if $A=\varnothing$ is the empty graph $\varnothing$, then $B +_A C$ is the componentwise disjoint union of graphs $B$ and $C$.
+In contrast, a pullback is the intersection of objects $B$ and $C$ via common object $D$.
+\parpic[r][r]{
+\SelectTips{cm}{}
+$
+\xymatrix@C-2ex@R-2ex{
+X \ar[rd]|{x} \ar[rrrd]|{h_X} \ar[dddr]|{k_X} & & & & \\
+  & A \ar[rr]|{f} \ar[dd]|{g} & & B \ar[dd]|{g'} \ar[rddd]|{h_Y} & \\
+  & & (1) & & \\
+  & C \ar[rr]|{f'} \ar[rrrd]|{k_Y} & & D \ar[rd]|{y} & \\
+  & & & & Y
+}
+$
+}
+\emph{A pushout (PO) $(1)$ or $(f',g')$ over morphisms $(f,g)$}, written $B +_A C$, is defined by
+\begin{enumerate*}
+\item a pushout object $D$, and
+\item morphisms $f',g'$ with $f' \circ g=g' \circ f$, such that the following universal property is fulfilled: for all objects $Y$ and morphisms $h_Y,k_Y$ with $k_Y \circ g=h_Y \circ f$, there is a unique morphism $y\colon D \to Y$ such that $y \circ g'=h_Y$ and $y \circ f'=k_Y$ (cf. Def. A.17 in \cite{Ehrig:2006:FAG:1121741}).
+\end{enumerate*}
+Note that the pushout object is unique up to isomorphism (cf. Rem. A.18 in \cite{Ehrig:2006:FAG:1121741}) and furthermore, $(f',g')$ is jointly epimorphic.
+According to Def. A.20 in \cite{Ehrig:2006:FAG:1121741}, for pushout $(1)$, \emph{$(f',g)$ is called the pushout complement over $(f,g')$}\index{pushout!complement}.
+The ``smallest'' pushout (1) with $f,f' \in \M$ for a given morphism $g'$ is called initial pushout for $g'$.
+In categories of graphs, the initial pushout (1) is the smallest pushout for $g'$ in the sense that boundary graph $A$\index{pushout!initial!boundary graph} only contains those graph elements of $B$ that are necessary to glue $B$ and context graph $C$\index{pushout!initial!context graph} via common $A$ to $D$.
+For technical details we refer to Def. 4.23, item 4 in \cite{FAGT2}.\index{pushout!initial}
+The pushout complement over $(h_X,g')$ exists if and only if for the initial pushout (1) for $g'$, there is a morphism $b^*\colon A \to X$ such that $h_X \circ b^*=f$ (cf. Thm. 6.4 in \cite{Ehrig:2006:FAG:1121741}).\index{pushout!complement!existence}
+\emph{A pullback (PB) $(1)$ or $(f,g)$ over morphisms $(f',g')$} is defined by
+\begin{enumerate*}
+\item a pullback object $A$, and
+\item morphisms $f,g$ with $g' \circ f=f' \circ g$, such that the following universal property is fulfilled: for all objects $X$ and morphisms $h_X,k_X$ with $f' \circ k_X=g' \circ h_X$, there is a unique morphism $x\colon X \to A$ such that $f \circ x=h_X$ and $g \circ x=k_X$ (cf. Def. A.22 in \cite{Ehrig:2006:FAG:1121741}).
+\end{enumerate*}
+With diagram $(1)$ commutes we mean that $g' \circ f=f' \circ g$.
+With $(1)+(2)$ we denote the composition of two adjacent diagrams.
+\envEndMarker
+\end{remark}
+
+$\M$-adhesive categories are defined based on the following properties.
+For $\M$-morphisms $m$, we write $m \in \M$ and say that $m$ is in $\M$.
+For several $\M$-morphisms $m_1,\ldots,m_n$ we write $m_1,\ldots,m_n \in \M$.
+
+\begin{definition}[PO-PB compatibility (Def. 4.2 \& Rem. 4.3 in \cite{FAGT2})]
+\label{def:sec-gt-M-adh:PO-PB-comp}
+A morphism class $\M$ in a category $\cat{C}$ is called \emph{PO-PB compatible}\index{$\M$-morphisms} if
+\begin{enumerate}
+  \item $\M$ is a class of monomorphisms, contains all identities (and isomorphisms), is closed under composition ($\M$-composition\index{$\M$-composition}), i.e., $(f\colon A \to B \in \M,g\colon B \to C \in \M \implies g \circ f \in \M)$, and is closed under decomposition ($\M$-decomposition\index{$\M$-decomposition}), i.e., $g \circ f \in \M, g \in \M$ implies $f \in \M$.
+  \item $\cat{C}$ has pushouts and pullbacks along $\M$-morphisms (i.e., if $f \in \M$ or $g \in \M$ ($f' \in \M$ or $g' \in \M$), then there is a pushout (pullback) $(1)$), and $\M$-morphisms are closed under pushouts and pullbacks (i.e., $\M$-morphisms are preserved by pushouts and pullbacks - for pushout (pullback) $(1)$, if $f \in \M$ ($f' \in \M$), then $f' \in \M$ ($f \in \M$)).
+\end{enumerate}
+\envEndMarker
+\end{definition}
+
+For $\M$-van Kampen squares, we refer to Def. 4.1 in \cite{FAGT2}.
+
+\begin{definition}[$\M$-adhesive Category (Def. 4.4 in \cite{FAGT2})]
+\label{def:sec-gt-M-adh:M-adh-cat}
+A category $\cat{C}$ with a PO-PB compatible morphism class $\M$ is called an \emph{$\M$-adhesive category $(\cat{C},\M)$}\index{category!$\M$-adhesive} if pushouts in $\cat{C}$ along $\M$-morphisms are $\M$-van Kampen squares.
+\envEndMarker
+\end{definition}
+
+In addition to the properties in \cref{def:sec-gt-M-adh:PO-PB-comp,def:sec-gt-M-adh:M-adh-cat}, the following basic HLR properties hold for $\M$-adhesive categories (we only list those basic HLR properties that are used in proofs of results of this thesis - For a complete list we refer to Def. 4.21 in \cite{FAGT2}).
+
+\begin{definition}[Basic HLR properties (Thm. 4.22 in \cite{FAGT2})]
+\label{def:sec-gt-M-adh:hlr_props}
+\index{category!$\M$-adhesive!basic HLR properties}
+Given an $\M$-adhesive category $(\cat{C},\M)$, then the following properties are valid:
+\begin{itemize}
+  \parpic[r][r]{
+$
+\SelectTips{cm}{}
+     \xymatrix@R-3.3ex@C-2ex{
+     A \ar[dd]_{l} \ar[rr]^{k} & & B \ar[rr]^{r} \ar[dd]^{s} & & E \ar[dd]^{v} \\
+     & (1) & & (2) & \\
+     C \ar[rr]_{u} & & D \ar[rr]_{w} & & F\\
+     }
+$
+}
+  \item Pushouts along $\M$-morphisms are pullbacks, i.e., given pushout $(1)$ with $k \in \M$, then $(1)$ is also a pullback.
+  \item \index{$\M$-pushout-pullback decomposition}$\M$-pushout-pullback decomposition, i.e., given commuting $(1)$ and $(2)$ where $(1)+(2)$ is a pushout, $(2)$ is a pullback, $w \in \M$, and ($l \in \M$ or $k \in \M$), then $(1)$ and $(2)$ are pushouts and also pullbacks.
+  \item \index{pushout!complement!uniqueness}Uniqueness of pushout complements, i.e., given morphisms $k \in \M$ and $s$, then there is, up to isomorphism, at most one $C$ with morphisms $l,u$ such that $(1)$ is a pushout.
+  \envEndMarker
+\end{itemize}
+\end{definition}
+
+\begin{remark}[$\M$- and $\morO$-Morphisms in the $\M$-adhesive Category $(\AGraphs_\ATGI,\M)$]
+\label{rem:sec-gt-M-adh:agraphs_atgi}
+\index{category!$\AGraphs_\ATGI$!$\M$-morphisms}
+\index{category!$\AGraphs_\ATGI$!$\morO$-morphisms}
+\index{category!$\AGraphs_\ATGI$!type strict-morphisms}
+According to Thm. 6 in \cite{DBLP:journals/tcs/GolasLEO12}, category $(\AGraphs_\ATGI,\M)$ is $\M$-adhesive with $\M$ being the class that consists of all typed attributed graph morphisms $f\colon G^T \to H^T$ that are componentwise injective, type strict (i.e., $\type_H \circ f=\type_G$) and where $f_D$ is an isomorphism.
+Since $\M$-morphisms are type strict, they cannot refine the types of nodes from super- to sub-types along a node type inheritance relation (cf. \cref{sec-gt-graphs,rem:sec-gt-graphs:inheritance}).
+For a morphism $f\colon G \to H \in \M$, we say that G occurs in H or $G$ is a sub-graph of $H$ or $H$ covers $G$.
+According to Def. 12 in \cite{DBLP:journals/tcs/GolasLEO12,Hermann:2010:EAE:1866272.1866277} and Def. 7.3 in \cite{FAGT2}, $\morO$-morphisms in $\AGraphs_\ATGI$ are all typed attributed graph morphisms $f$ that are almost injective, i.e., that are componentwise injective except perhaps for the mapping $f_D$ of the data nodes as possible attribute values.
+In the context of graph transformations in \cref{sec-gt-trafo}, rules should be applied along $\morO$-match morphisms that do not identify structures of graphs, but which may identify attribute expressions to identical values.
+The same situation arises for matches and the satisfaction of graph conditions and constraints in \cref{sec-gt-gc,def:condition-satisfaction}.
+Therefore, $\morO$ is a distinguished class of match morphisms.
+According to \cite{FAGT2}, the underlying categories $(\Graphs,\M)$ and $(\Graphs_{\TG},\M)$ of plain and typed graphs over type graph $\TG$ with(out) node type inheritance with $\M$ being the class of all (type strict) monomorphisms (i.e., componentwise injective morphisms) are also $\M$-adhesive.
+\envEndMarker
+\end{remark}
+
+\begin{remark}[(Strict) $\M$-decomposition]
+Note that $\M$-adhesive category $(\AGraphs_\ATGI,\M)$ has $\M$-decompositions by definition \cref{def:sec-gt-M-adh:M-adh-cat}.
+However, $(\AGraphs_\ATGI,\M)$ does not have strict $\M$-decompositions ($g \circ f \in \M$ implies $f \in \M$), since, $f$ may not be an isomorphism on the data part $f_D$ (cf. \cref{rem:sec-gt-M-adh:agraphs_atgi}).
+Categories $(\Graphs,\M)$ and $(\Graphs_\TG,\M)$ have strict $\M$-decompositions.
+\index{$\M$-decomposition!strict}
+\envEndMarker
+\end{remark}
+
+Usually, formal results are applied in the context of finitary $\M$-adhesive categories $(\cat{C}_\fin,\M_\fin)$ where the objects $\ob_\cat{C}$ and morphisms $\morB_\cat{C}$ of an $\M$-adhesive category $(\cat{C},\M)$ are restricted to finite objects $\ob_{\cat{C}_\fin} \subseteq \ob_\cat{C}$ with finitely many $\M$-subobjects and morphisms $\morB_{\cat{C}_\fin} \subseteq \morB_\cat{C}$ between them.
+For example, the finitary $\M$-adhesive category $(\AGraphs_{\ATGI,\fin},\M_\fin)$\index{category!\AGraphs_{\ATGI,\fin}} contains all typed attributed graphs $G$ over type graph $\ATGI$ that are finite\index{graph!finite} in the sense that the graph part of $G$ is finite (i.e., the sets of graph nodes, edges and attributes are finite) while type graph $\ATGI$ and the data part of $G$ may be infinite (i.e., the algebra of $G$ and the sets of data nodes may be infinite) (cf. Thm. 4.47 in \cite{FAGT2}).
+Moreover, class $\M_\fin$ is the finitary restriction of class $\M$ according to the finitary restriction of morphisms from $\AGraphs_\ATGI$ to $\AGraphs_{\ATGI,\fin}$.
+Finitary $\M$-adhesive categories have the additional HLR property of unique (extremal) $\E$-$\M$ factorisations for all morphisms (cf Prop.~3 in~\cite{BEGG10} for uniqueness \& Prop.~4 in~\cite{BEGG10} or Thm. 4.42 in \cite{FAGT2} for the existence of $\E$-$\M$ factorisations).
+$\E$-$\M$ factorisations are used for the definition of AC-schemata of graph conditions in \cref{sec-gt-gc,def:AC-schemata}.
+For a class $\E$ of morphisms, an $\E$-$\M$ factorisation $m \circ e$ of a morphism $f$ is a decomposition of $f$ into morphisms $e \in \E,m \in \M$ such that $m \circ e=f$.
+Note that category $(\AGraphs_\ATGI,\M)$ does not have $\E$-$\M$-factorisations in general for class $\E$ of all epimorphisms, since, for factorisations $m \circ e$, $\M$-morphisms in $\AGraphs_\ATGI$ are isomorphisms on the data part $m_D$ and therefore, $e_D$ is not necessarily an epimorphism on the data part implying further that $e$ is not necessarily in $\E$.
+Therefore, we review $\E$-$\M$ factorisations based on class $\E$ of all extremal morphisms w.r.t. $\M$.
+In $(\AGraphs_\ATGI,\M)$, extremal $\E$-morphisms $e$ w.r.t $\M$ are epimorphisms on the graph part $e_S$ but not necessarily epimorphisms on the data part $e_D$.\index{category!$\AGraphs_\ATGI$!$\E$-morphisms}
+If $m \circ e$ is the $\E$-$\M$ factorisation of a morphism $f$ in $(\AGraphs_\ATGI,\M)$ which refines types along the type inheritance relation of type graph $\ATGI$, then all refinements are shifted to morphism $e$, since, $\M$-morphism $m$ is type strict according to \cref{rem:sec-gt-M-adh:agraphs_atgi}.
+In the underlying $\M$-adhesive categories $(\Graphs,\M)$ and $(\Graphs_\TG,\M)$ of plain and typed graphs over type graph $\TG$, class $\E$ contains all epimorphisms and class $\M$ all monomorphisms and therefore, the (extremal) $\E$-$\M$ factorisation corresponds to the well-known epi-mono factorisation of morphisms.
+In finitary $\M$-adhesive categories, the extremal $\E$-$\M$ factorisation of a morphism $f\colon A \to B$ can be performed by constructing decompositions $m \circ e, e \in \E,m\in \M,m\circ e=f$ for all $\M$-subobjects $[m]$ of $B$ and stepwise pullbacks of them as shown by Prop.~4 in~\cite{BEGG10}.
+
+\begin{definition}[Finitary $\M$-adhesive Category \& $\M$-subobject (Defs. 4.29 \& 4.30 in \cite{FAGT2})]
+\emph{An $\M$-subobject of an object $G$}\index{object!$\M$-subobject} in an $\M$-adhesive category $(\cat{C},\M)$ is an equivalence class $[a\colon A \to G \in \M]$ of $\M$-morphisms with codomain $G$ over equivalence relation $\sim:=\{(a_1\colon A_1 \to G,a_2\colon A_2 \to G) \mid a_1,a_2 \in \morB_\cat{C},\exists \text{ isomorphism } i\colon A_1 \to A_2 \in \morB_\cat{C} \text{ such that } a_2 \circ i=a_1\}$.
+Object $G$ is finite if it has finitely many $\M$-subobjects.
+\emph{An $\M$-adhesive category $(\cat{C},\M)$ is called finitary}\index{category!$\M$-adhesive!finitary} if each object $G \in \ob_\cat{C}$ is finite.
+\envEndMarker
+\end{definition}
+
+\begin{definition}[(Extremal) $\E$-$\M$ Factorisation (Def. 4.34 in \cite{FAGT2})]
+\label{def:EMFactorisation}
+Given an $\M$-adhesive category $(\cat{C},\M)$, the class $\E$ of all \emph{extremal morphisms w.r.t. $\M$}\index{morphism!extremal $\E$} is defined by $\E := \{e \in \morB_\cat{C} \mid \forall m,g \in \morB_\cat{C}, m \circ g=e.m \in \M \Rightarrow m \text{ is an isomorphism}\}$.
+For a morphism $f \in \morB_\cat{C}$, an \emph{(extremal) $\E$-$\M$ factorisation of $f$}\index{$\E$-$\M$ factorisation!extremal} is given by morphisms $e \in \E$ and $m \in \M$ such that $m \circ e=f$.
+\envEndMarker
+\end{definition}
+
+\begin{remark}[Uniqueness of Extremal $\E$-$\M$ Factorisation]
+\label{rem:sec-gt-M-adh:uniq_extr_EM_fact}
+\index{$\E$-$\M$ factorisation!uniqueness}
+According to Fact 4.38 in \cite{FAGT2}, in $\M$-adhesive categories $(\cat{C},\M)$, extremal $\E$-$\M$ factorisations are unique up to isomorphism.
+\envEndMarker
+\end{remark}
+
+\begin{remark}[Finitary $\M$-adhesive Categories, Existence of $\E$-$\M$ Factorisations \& Initial Pushouts]
+\label{rem:sec-gt-M-adh:agraphs_atgi_fin}
+According to \cref{rem:sec-gt-M-adh:agraphs_atgi} and Thms. 4.42 \& 4.47 in \cite{FAGT2}, category $(\AGraphs_{\ATGI,\fin},\M_\fin)$ is finitary $\M$-adhesive and has a unique extremal $\E$-$\M$ factorisation with $\E$ being the class of all extremal morphisms w.r.t. $\M$ and furthermore, the category has initial pushouts.
+Consequently, the underlying categories $(\Graphs,\M)$ and $(\Graphs_\TG,\M)$ (their finitary restrictions $(\Graphs_\fin,\M_\fin)$ and $(\Graphs_{\TG,\fin},\M_\fin)$) as well as $(\AGraphs_\ATGI,\M)$ have a unique extremal $\E$-$\M$ factorisation (and are finitary $\M$-adhesive).
+\envEndMarker
+\end{remark}
+
+The definition of the satisfaction of graph constraints in \cref{sec-gt-gc,def:constr_sat} relies on the notions of initial objects and initial morphisms.
+
+\begin{definition}[($\M$)-Initial Object (Defs. A.28 \& 4.25 in \cite{FAGT2})]
+In a category $\cat{C}$, an object $I$ is called \emph{initial}\index{object!initial}\index{morphism!initial} if for each object $G \in \ob_\cat{C}$ there exists a unique initial morphism $i_G\colon I \to G$.
+An initial object $I$ in $\M$-adhesive category $(\cat{C},\M)$ is called \emph{$\M$-initial}\index{object!$\M$-initial}\index{morphism!$\M$-initial} if for each object $G \in \ob_\cat{C}$ the unique initial morphism $i_G\colon I \to G$ is in $\M$.
+\envEndMarker
+\end{definition}
+
+\begin{remark}[($\M$)-Initial Objects in Categories of Graphs]
+In $(\Graphs,\M)$ and $(\Graphs_\TG,\M)$, the initial and $\M$-initial object is the empty graph $\varnothing$ with the empty morphism $i_G\colon \varnothing \to G \in \M$ as unique initial morphism for each graph $G$.
+In category $(\AGraphs_\ATGI,\M)$, object $((\varnothing,T_\DSIG),\type)$ is initial with $\varnothing$ being the empty graph, $\type$ being the empty type morphism and $T_\DSIG$ being the $\DSIG$-term algebra.
+In the following, we simply write $\varnothing$ for initial object $((\varnothing,T_\DSIG),\type)$.
+For a graph $G$, the unique initial morphism $i_G\colon ((\varnothing,T_\DSIG),\type) \to G$ is given by the empty morphism $i_{G,S}$ on the graph part and the unique \code{eval} morphism $i_{G,D}$ on the data part that evaluates the terms of $T_\DSIG$ to data values in $\DSIG$-algebra $D_G$.
+However, $(\AGraphs_\ATGI,\M)$ does not have an $\M$-initial object, since, according to \cref{rem:sec-gt-M-adh:agraphs_atgi} the initial $\M$-morphisms $i_G$ are isomorphisms on the data part $i_{G,D}$ which does not hold for all graphs $G$ in $\AGraphs_\ATGI$.
+\envEndMarker
+\end{remark}
+
+For the results of \cref{sec-dc-general-rec,sec-dc-general-res} we assume $\M$-adhesive categories with effective pushouts.
+
+\parpic[r][r]{
+\SelectTips{cm}{}
+$
+\xymatrix@C-2ex@R-2ex{
+ A \ar[rr]|{f} \ar[dd]|{g} & & B \ar[dd]|{g'} \ar[rddd]|{h_Y} & \\
+ & (1) & & \\
+ C \ar[rr]|{f'} \ar[rrrd]|{k_Y} & & D \ar[rd]|{y} & \\
+ & & & Y
+}
+$
+}
+\begin{definition}[Effective Pushout (Def. 4.23 in \cite{FAGT2})]
+\index{pushout!effective}
+Given a pullback $(f,g)$ over $(h_Y,k_Y)$ and a pushout $(1)$ with all morphisms being $\M$-morphisms, then also the induced morphism $y\colon D \to Y$ is in $\M$.
+We say that $(1)$ is the effective pushout over $(h_Y,k_Y)$.
+\envEndMarker
+\end{definition}
+
+\begin{remark}[Effective Pushouts in Category $(\AGraphs_\ATGI,\M)$]
+\label{rem:sec-gt-M-adh:eff_po}
+According to Rem. 4.24 in \cite{FAGT2}, $\M$-adhesive categories may not have effective pushouts in general, but $(\AGraphs_\ATGI,\M)$ has effective pushouts (cf. Rem 5.57 in \cite{FAGT2}).
+\envEndMarker
+\end{remark}
+
+\paragraph*{General Assumption}
+In the following, we assume the context of $\M$-adhesive categories for definitions and results if not made explicit, especially when speaking of $\M$-morphisms.

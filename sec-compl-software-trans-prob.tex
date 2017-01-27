@@ -1,0 +1,68 @@
+As illustrated in \cref{fig:sec-compl-software-trans:softwaretrans}, our approach of translating programs of a programming language $\Lang^S$ is to translate their derivation trees as induced by the word grammar $G^S$ of $\Lang^S$.
+Each derivation tree is represented by a typed attributed graph in the source graph language $\mathcal{VL}^S$ of derivation trees and translated by performing a model transformation based on a given triple graph grammar.
+The result is a typed attributed graph in the target modelling (graph) language $\mathcal{VL}^T$.
+Furthermore, we assume that the source (target) graph language is defined by a type graph $\TG^S$ ($\TG^T$) together with a set $C^S$ ($C^T$) of graph contraints.
+
+\begin{definition}[Graph Language over Type Graph \& Constraints]
+\index{language!$\Lang(C)$ over graph constraints}
+Given a type graph $\TG$ and a set $C$ of graph constraints that are typed over $\TG$.
+Then, the \emph{graph language over $\TG$ and $C$} is given by $\Lang(\TG,C)=\{G \mid \text{graph }G\text{ is typed over }\TG,G \models C\}$ all graphs $G$ that are typed over $\TG$ and that satisfy the constraints $C$.
+\envEndMarker
+\end{definition}
+
+The translation is syntactically complete, if all derivation trees of $G^S$ can be completely translated.
+Intuitively, a derivation tree is completely translated, if all nodes and edges of the tree are translated exactly once.
+Since, the translation of derivation trees is based on the translation of their graph representations, it is required that the language $\Der(G^S)$ of derivation trees of  $G^S$ is isomorphic to the graph language $\Lang(\TG^S,C^S)$ of their graph representations (cf. \cref{sec-compl-software-trans-mapping,thm:sec-compl-software-trans:equ_lang_der}).
+Thus, each tree in $\Der(G^S)$ is represented by exactly one graph in $\Lang(\TG^S,C^S)$ and each graph in $\Lang(\TG^S,C^S)$ represents exactly one derivation tree in $\Der(G^S)$.
+
+\begin{definition}[Isomorphism of Derivation Tree Languages]
+\label{def:sec-compl-software-trans-prob:iso}
+\index{language!of derivation trees!isomorphism}
+Given a context-free word grammar $G$ with induced language $\Der(G)$ of derivation trees.
+Let $\Lang(\TG,C)$ be a graph language of derivation trees over type graph $\TG$ and graph constraints $C$.
+\emph{Languages $\Der(G)$ and $\Lang(\TG,C)$ are isomorphic}, if there exists a bijection $m\colon \Der(G) \to \Lang(\TG,C)$ between both.
+\envEndMarker
+\end{definition}
+
+By \cref{def:comp_soft_trans}, a software translation is syntactically complete if each source derivation graph $G^S \in \Lang(\TG^S,C^S)$ can be completely translated via a model transformation sequence in the sense that all elements of the graph are translated exactly once by changing their translation attributes from $\False$ to $\True$.
+
+\begin{definition}[Syntactical Completeness of Software Translations]
+\label{def:comp_soft_trans}
+\index{software transformation!completeness}
+Given a context-free word grammar $G^S$ for source language $\Lang^S$ with induced language $\Der(G^S)$ of derivation trees.
+Let $\TG=(\TG^S \gets \TG^C \to \TG^T)$ be a triple type graph with $\Lang(\TG^S,C^S)$ being the graph language of derivation trees isomorphic to $\Der(G^S)$. 
+Furthermore, let $\TGG=(\varnothing,\TR)$ be a triple graph grammar typed over $\TG$ with derived forward translation rules $\TR_\FT$ that specifies the model transformation of graphs in $\Lang(\TG^S,C^S)$ into graphs of target graph language $\Lang(\TG^T,C^T)$ based on forward translation rules $\TR_\FT$.
+\emph{The translation is syntactically complete}, if for each derivation graph $G^S \in \Lang(\TG^S,C^S)$ there is a model transformation sequence $(G^S,G_0 \Trans{\tr^*_\FT} G_n,G^T)$ based on forward translation rules $\TR_\FT$ with $G_0=(\Att^\False(G^S) \gets \varnothing \to \varnothing)$ and $G_n=(\Att^\True(G^S) \gets G^C \to G^T)$.\envEndMarker
+\end{definition}
+
+From the setting for translations in \cref{fig:sec-compl-software-trans:softwaretrans} and from \cref{def:comp_soft_trans,fact:comp_soft_trans}, the following problems arise concerning the completeness and correctness of software translations.
+
+\begin{problem}[Syntactical Completeness \& Correctness of Software Translations]
+\label{prob:scst}
+\begin{enumerate}
+  \item \label{item:scst1} Syntactical Completeness \& Correctness: Given a context-free word grammar $G$ with induced language $\Der(G)$ of derivation trees.
+  How to derive a graph language $\Lang(\TG,C)$ of derivation trees from $G$ that is isomorphic to $\Der(G)$?
+  \item \label{item:scst2} Syntactical Completeness: How to verify the language inclusion $\Lang(\TG^S,C^S) \subseteq \Lang(\TGG)^S$ (domain completeness)?
+  \item \label{item:scst3} Syntactical Correctness: How to ensure that the resulting graphs of a translation are actually graphs of the target graph language $\Lang(\TG^T,C^T)$, i.e., $\Lang(\TGG)^T \subseteq \Lang(TG^T,C^T)$ (domain correctness)?
+  \item \label{item:scst4} Syntactical Completeness \& Correctness: Given verification techniques for the language inclusion problems in \cref{item:scst2,item:scst3}.
+  Are the techniques applicable to the derived type graph $\TG$ and the derived set of graph contraints $C$ of \cref{item:scst1}?\envEndMarker
+\end{enumerate}
+\end{problem}
+
+Beside the completeness problem, \cref{fig:sec-compl-software-trans:softwaretrans} also brings forth the correctness problem of software translations in \cref{prob:scst,item:scst3}.
+Therefore, are the resulting graphs 
+\begin{enumerate*}
+\item models of the target language in text-to-model translations, or
+\item actually representations of derivation trees of the target programming language in text-to-text translations such that they can be serialised to target programs?
+\end{enumerate*}
+While the correctness problem remains subject of future work under the notion of domain correctness, we furthermore concentrate on the completeness problem based on the notion of domain completeness.
+While the syntactical completeness of software translations in the graph world itself, i.e., the language inclusion in \cref{fact:comp_soft_trans}, can be verified by means of the existing verification techniques for domain completeness (cf. \cref{prob:scst,item:scst2}), it remains to close the gap between the word grammar and graph world (cf. \cref{prob:scst,item:scst1}) such that the verification techniques for domain completeness are applicable (cf. \cref{prob:scst,item:scst4}).
+The gap is closed by presenting a mapping from context-free (EBNF) grammars $G$ to attributed EBNF type graphs $\TG$ together with EBNF graph constraints $C$ in \cref{sec-compl-software-trans-mapping} such that the induced language $\Der(G)$ of derivation trees is isomorphic to the graph language $\Lang(\TG,C)$ of derivation trees (cf. \cref{sec-compl-software-trans-mapping,thm:sec-compl-software-trans:equ_lang_der}).
+Furthermore, we use several extensions of the verification techniques for domain completeness in view of the derived EBNF type graphs $\TG$ and EBNF graph constraints $C$ for verifying the completeness of the translation in \cref{sec-compl-software-trans-tgg,ex:sec-compl-software-trans:trans}.
+The extension includes
+\begin{enumerate*}
+\item recursive graph constraints from \cref{sec-dc-general-rec}, and
+\item domain restrictions from \cref{sec-dc-general-res}.
+\end{enumerate*}
+While recursive graph constraints are used for the definition of EBNF graph constraints $C$ in \cref{sec-compl-software-trans-mapping,def:sec-compl-software-trans:ebnf_constraints}, domain restrictions are necessary for the translation in \cref{sec-compl-software-trans-tgg,ex:sec-compl-software-trans:trans} which only covers those parts of a derivation tree which are related to class definitions in a program.
+Thus, a restriction of the graph language of derivation trees to a sub-language covering the class definitions only is required for verifying the completeness of the translation, called domain completeness under restrictions (cf. \cref{sec-dc-general-res,def:sec-dc-general-res:dc_prob}).

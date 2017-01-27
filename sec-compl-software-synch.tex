@@ -1,0 +1,27 @@
+A software synchronisation is syntactically complete if each update on a source derivation graph $G^S \in \Lang(\TG^S,C^S)$ leading to a graph $G'^S$ can be completely propagated to the target domain in the sense that all elements of $G'^S$ are in correspondence with elements in the target domain, i.e., all elements in $G'^S$ are translated to elements in the target domain.
+
+\begin{definition}[Syntactical Completeness of Software Synchronisations]
+\label{def:comp_soft_synch}
+\index{software synchronisation!completeness}
+Given a context-free word grammar $G^S$ for source language $\Lang^S$ with induced language $\Der(G^S)$ of derivation trees.
+Let $\TG=(\TG^S \gets \TG^C \to \TG^T)$ be a triple type graph with $\Lang(C^S)$ being the source graph language of derivation trees isomorphic to $\Der(G^S)$. 
+Furthermore, let $\TGG=(\varnothing,\TR)$ be a triple graph grammar typed over $\TG$ with derived forward translation rules $\TR_\FT$ that specifies the model transformation of graphs in $\Lang(C^S)$ into graphs of target graph language $\Lang(C^T)$ based on forward translation rules $\TR_\FT$.
+Let $u\colon M^S \to M'^S$ with $M^S,M'^S \in \Lang(C^S)$ be a model update from a model $M^S$ to a model $M'^S$ both in the source graph language of derivation trees $\Lang(C^S)$.
+\emph{The synchronisation is syntactically complete}, if for each such update $u$ and triple graph $M=(M^S \gets M^C \to M^T)$ the forward propagation operation $\fPpg(M,u)=(M',u')$ leads to an update $u'\colon M^T \to M'^T$ in the target domain and integrated model $M'=(M'^S \gets M'^C \to M'^T)$ such that there is a model transformation sequence $(M'^S,M_0 \Trans{\tr^*_\FT} M_n,M'^T)$ based on the forward translation rules of $\TGG$ with $M_0=(\Att^\False(M'^S) \gets \varnothing \to \varnothing)$ and $M_n=(\Att^\True(M'^S) \gets M'^C \to M'^T)$.
+\envEndMarker
+\end{definition}
+
+Based on the ``classical" syntactical completeness and correctness of model transformations and synchronisations by triple graph grammars based on forward translation rules (cf. Cor. 8.5 \& Thm 9.25 in \cite{FAGT2} and \cref{sec-gen-intro-compl}) and the decomposition property of TGGs, the completeness of software synchronisations can be reformulated as follows.
+While \cref{def:comp_soft_synch} reflects the intuitive meaning behind complete synchronisations, \cref{fact:comp_soft_synch} expresses completeness in terms of a language inclusion which can be verified by using the verification techniques for domain completeness in \cref{sec-dom-compl-mt}.
+Therefore, both formulations of completeness in \cref{def:comp_soft_synch,fact:comp_soft_synch} are equivalent.
+
+\begin{proposition}[Syntactical Completeness of Software Synchronisations]
+\label{fact:comp_soft_synch}
+Let $\Synch(\TGG)$ be the derived TGG synchronisation framework with forward propagation operation $\fPpg$ such that the sets of operational translation rules derived from $\TGG$ are kernel-grounded and deterministic.
+Then, the synchronisation via $\fPpg$ is syntactically complete according to \cref{def:comp_soft_synch} if and only if $\Lang(C^S) \subseteq \Lang(\TGG)^S$.
+\envEndMarker
+\end{proposition}
+
+\begin{proof}
+The proof is analogue to the proof of \cref{sec-dom-compl-synch,prop:sec-dom-compl-synch:compl}.
+\end{proof}

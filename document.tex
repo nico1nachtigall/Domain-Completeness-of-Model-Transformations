@@ -1,0 +1,360 @@
+\documentclass{eceasst}
+
+\usepackage{layout}
+
+\setcounter{tocdepth}{3}
+
+%\usepackage{xcolor}
+\usepackage{etex}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.pathreplacing}
+%\usepackage{pgflibraryarrows}
+\usepackage[all]{xy}
+\usepackage{placeins}
+%\usepackage{url}
+\usepackage{xspace}
+\usepackage{picins}
+\usepackage{mathtools}
+\usepackage{datetime}
+\usepackage[inline]{enumitem}
+\usepackage[nameinlink]{cleveref} 
+\usepackage{changebar}
+\usepackage{wallpaper}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{makeidx}
+\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{pdfpages}
+
+\hypersetup{pdfinfo={
+  Title=Domain Completeness of Model Transformations and Synchronisations,
+  Author=Nico Nachtigall,
+  Subject=Dissertation in Theoretical Computer Science,
+  Keywords={visual modelling, model-driven software \& systems development, graph transformation, category theory, model transformation, model synchronisation, domain completeness}
+}}
+
+\pgfarrowsdeclaredouble{<<}{>>}{latex}{latex}% 
+
+\input{macro}
+
+\titleformat{name=\chapter,numberless}[display]
+{
+\raggedleft
+} % chapter title format
+{
+  \hrulefill
+  \hspace*{-35pt}
+  \rlap{\hspace*{30pt}\rule{6cm}{1.5cm}}
+} % chapter number label
+{10pt} % sep
+{
+  \Huge\sffamily\bfseries
+} % before code
+
+%%% CHAPTER DEFINITION
+
+\titleformat{\chapter} % command
+[display] %shape
+{
+\usefont{OT1}{}{m}{n}\selectfont
+\bfseries\LARGE\itshape
+\raggedleft
+} % chapter title format
+{
+  \hrulefill
+  \hspace*{1pt}
+  \chaptertitlename
+  \rlap{\resizebox{!}{1.5cm}{\thechapter} \rule{5cm}{1.5cm}}
+} % chapter number label
+{
+  10pt
+} % sep
+{
+  \Huge\sffamily\bfseries
+} % before code
+
+\renewcommand{\shortversion}[1]{}
+\renewcommand{\uncuttedversion}[1]{}
+\renewcommand{\covers}[1]{}
+
+\makeindex
+
+\begin{document}
+
+\covers{\includepdf[fitpaper,noautoscale=false,offset=-7mm 0mm]{cover/coverfront.png}}
+
+\frontmatter
+\input{titlepage}
+\null\newpage
+
+\thispagestyle{plain}
+\begin{flushright}
+\vspace*{8cm}
+\huge
+To my sons Emil \& Max, my wife Susann and my grandfather \dag Axel
+\end{flushright}
+\clearpage
+\null\newpage
+
+\addcontentsline{toc}{chapter}{Foreword \& Acknowledgements}
+\chapter*{Foreword \& Acknowledgements}
+The intrinsic question of most activities in information science, in practice or science, is \textit{``Does a given system satisfy the requirements regarding its application?''}
+% Most activities have a link to this question
+Commonly, requirements are expressed and accessible by means of models, mostly in a diagrammatic representation by visual models.
+% since, requirements not yet realised and exist only via cognitive concepts
+The requirements may change over time and are often defined from different perspectives and within different domains.
+This implies that models may be transformed either within the same domain-specific visual modelling language or into models in another language.
+Furthermore, model updates may be synchronised between different models. %to achieve consistency
+Most types of visual models can be represented by graphs where model transformations and synchronisations are performed by graph transformations.
+The theory of graph transformations emerged from its origins in the late 1960s and early 1970s as a generalisation of term and tree rewriting systems to an important field in (theoretical) computer science with applications particularly in visual modelling techniques, model transformations, synchronisations and behavioural specifications of models.
+Its formal foundations but likewise visual notation enable both precise definitions and proofs of important properties of model transformations and synchronisations from a theoretical point of view and an intuitive approach for specifying transformations and model updates from an engineer's point of view.
+The recent results were presented in the EATCS monographs ``Fundamentals of Algebraic Graph Transformation'' (FAGT) in 2006 and its sequel ``Graph and Model Transformation: General Framework and Applications'' (GraMoT) in 2015.
+%Visual models important role for visualising cognitive concepts of things obtained by abstractions.
+%In computer science, models are models for (sub-)systems.
+%Visual notation and the fact that most visual models can be represented by graphs makes graph transformation well-studied underlying concept for specifying dynamic behaviour of models and model transformations.
+%Behaviour of automaton and Petri nets.
+%In software engeneering, model transformations enforced by MDD, MDA.
+%This thesis concentrates on two important properties of model transformations and synchronisations, i.e., syntactical correctness and completeness.
+This thesis concentrates on one important property of model transformations and synchronisations, i.e., syntactical completeness.
+Syntactical completeness of model transformations means that given a specification for transforming models from a source modelling language into models in a target language, then all source models can be completely transformed into corresponding target models.
+In the same given context, syntactical completeness of model synchronisations means that all source model updates can be completely synchronised, resulting in corresponding target model updates.
+%On the other hand, syntactical correctness means that the resulting target models actually belong to the target language.
+This work is essentially based on the GraMoT book and mainly extends its results for model transformations and synchronisations based on triple graph grammars by a new more general notion of syntactical completeness, namely domain completeness, together with corresponding verification techniques.
+Furthermore, the results are instantiated to the verification of the syntactical completeness of software transformations and synchronisations.
+%Furthermore, a new concept of complete and correct model transformations (synchronisations) of inconsistent models (model updates) based on triple graph grammars is presented.
+The well-known transformation of UML class diagrams into relational database models and the transformation of programs of a small object-oriented programming language into class diagrams serve as running examples.
+The existing AGG tool is used to support the verification of the given examples in practice.
+%The completeness results may ensure a complete validation of the semantic correctness of model transformations and synchronisations based on semantic checks in the sense that each source model (update) may be tested against the corresponding target model (update).
+% \newline
+% \newline
+This is a revised version of the printed hard copy with additional notes on from domain incompleteness to domain completeness in \cref{sec-dom-compl-mt-synch} and on domain correctness in \cref{sec-conclusion}.
+
+\section*{Acknowledgements}
+First of all, I would like to thank Frank Hermann for his great support and patience. He did a great job in
+guiding me and answering the big amount of questions that occured during my PhD studies.
+Without the help of Frank, this work would not have been possible.
+Furthermore, I would like to thank Benjamin Braatz, Barbara K\"onig and Claudia Ermel for
+their continous help, for proofreading my work and for answering many questions.
+Also many thanks to Thomas Engel and Raimondas Sasnauskas for supervising my thesis and
+for giving me the opportunity to finish this thesis.
+%\noindent\textbf{Acknowledgements:}
+\parpic(0ex,0ex)[r][r]{\includegraphics[scale=0.38]{img/FNR_logo.jpg}}
+\noindent Supported by the Fonds National de la Recherche, Luxembourg 4895603.
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{General Introduction}
+\label{sec-gen-intro}
+
+While this chapter gives a short and general introduction to model transformations and synchronisations, its completeness and correctness properties and the main results of this thesis, \cref{sec-mt-ms-ff} gives a more in-depth introduction to model transformations, synchronisations, their properties (in particular the completeness property) and their link to the theory of graph transformations as the underlying formal framework.
+
+\section{Models in Information Science}
+\label{sec-gen-intro-models}
+\input{sec-gen-intro-models}
+
+\section{Models, Transformations \& Synchronisations}
+\label{sec-gen-intro-trafos}
+\input{sec-gen-intro-trafos}
+
+\section[Graph Transformations for Model Trans. \& Synchronisations]{Graph Transformation for Model Transformations \& Model Synchronisations}
+\label{sec-gen-intro-gratrafo}
+\input{sec-gen-intro-gratrafo}
+
+\section{Organisation of this Thesis \& Main Results}
+\input{sec-gen-intro-org}
+
+\chapter[Model Transformations, Synchronisations \& Framework]{Model Transformations, Model Synchronisations \& Formal Framework}
+\label{sec-mt-ms-ff}
+
+\section{General Introduction to Model Transformations \& Synchronisations}
+\label{sec-gen-intro-mt-ms}
+
+The initial introduction to model transformations and synchronisations from \cref{sec-gen-intro-trafos} is extended to a more detailed view in the following \cref{sec-gen-intro-mt,sec-gen-intro-msynch}.
+
+\subsection{Model Transformation}
+\label{sec-gen-intro-mt}
+\input{sec-gen-intro-mt}
+
+\subsection{Model Synchronisation}
+\label{sec-gen-intro-msynch}
+\input{sec-gen-intro-msynch}
+
+\section{Graph Transformation}
+\label{sec-gen-intro-gt}
+
+We recall basic definitions and results of the theory of algebraic graph transformation from \cite{Ehrig:2006:FAG:1121741,FAGT2}.
+In particular this includes the category $\AGraphs_\ATGI$ of typed attributed graphs with node type inheritance from \cite{DBLP:journals/tcs/GolasLEO12,FAGT2} in \cref{sec-gt-graphs}, their transformation and the generalisation to $\M$-adhesive transformation systems from \cite{FAGT2} in \cref{sec-gt-trafo}.
+Furthermore, we review the notions of (nested) graph conditions and constraints as well as their interpretation via AC-schemata from \cite{DBLP:journals/mscs/HabelP09,FAGT2} in \cref{sec-gt-gc}.
+Moreover, in \cref{prop:sec-gc-gc:rel_sat_cond_ac} we show that the direct interpretation of type strict conditions coincides with their interpretation via AC-schemata when restricting to $\M$-matches.
+For the general case, in \cref{th:sec-gc-gc:rel_sat_ac_schema} we show that the standard satisfiability of an AC-schema coincides with the $\morO$-satisfiability of the underlying condition.
+This allows an interpretation of conditions via $\morO$-matches and $\morO$-satisfiability from a user point of view while an interpretation via the standard satisfiability of AC-schemata with $\M$-matches is used to prove technical results.
+
+\subsection{Graphs, Typed \& Attributed Graphs}
+\label{sec-gt-graphs}
+\input{sec-gt-graphs}
+
+\subsection{$\M$-adhesive Categories}
+\label{sec-gt-M-adh}
+\input{sec-gt-M-adh}
+% 
+\subsection{Graph Conditions \& Constraints}
+\label{sec-gt-gc}
+\input{sec-gc-gc}
+
+\subsection{Graph Grammars, Transformations \& $\M$-adhesive Transformation Systems}
+\label{sec-gt-trafo}
+\input{sec-gt-trafo}
+
+\section{Model Transformation \& Synchronisation based on TGGs}
+\label{sec-gen-intro-mt-ms-tgg}
+
+This section reviews the concept of triple graph grammars (TGGs) as well as model transformations and synchronisations based on TGGs.
+
+\subsection{Triple Graphs \& Triple Graph Grammars (TGGs)}
+\label{sec-tgg}
+\input{sec-tgg}
+
+\subsection{Model Transformations based on TGGs}
+\label{sec-mt-tgg}
+\input{sec-mt-tgg}
+
+\subsection{Model Synchronisations based on TGGs}
+\label{sec-msynch-tgg}
+\input{sec-msynch-tgg}
+
+\section[Properties of Model Transformations \& Synchronisations]{Properties of Model Transformations \& Synchronisations (``Classical" Completeness \& Correctness)}
+\label{sec-gen-intro-compl}
+\input{sec-gen-intro-compl}
+
+\chapter{Domain Completeness}
+\label{sec-dom-compl}
+
+In \cref{sec-dc-general}, we introduce the domain completeness problem and show its undecidability in $(\cat{\Graphs_\TG},\M)$ and derivative categories of graphs with finite restrictions to the graphs, underlying type graph $\TG$, grammar, constraints and application conditions.
+Intuitively, the fact that the domain completeness problem is undecidable means that it is impossible to construct a single algorithm which completely solves the problem in the sense that the algorithm terminates and returns the correct yes-or-no answer concerning $\Lang(C) \subseteq \Lang(\GG)$ for each input $\Lang(C)$ and $\Lang(\GG)$.
+This led to the development of sufficient conditions that can be checked by a procedure for verifying domain completeness in $(\cat{AGraphs_\ATGI},\M)$ and underlying categories.
+It is guaranteed that the procedure terminates under certain assumptions.
+Note that the conditions are sufficient only without being necessary, i.e., the proposed verification technique is an under-approximation approach for solving the domain completeness problem in the sense that the approach does not yield false positives but may yield false negatives.
+Thus, if the conditions are fulfilled, then domain completeness holds but if the conditions are not fulfilled, then domain completeness does not necessarily not hold but may also hold.
+Therefore, we can give a concrete answer only to a subset of all constraint-grammar pairs for which domain completeness holds.
+
+\cref{sec-dc-verification} presents the verification technique.
+\cref{sec-dc-general-lim} presents the limitations of the approach.
+\cref{sec-dc-general-rec,sec-dc-general-res} presents various extensions of the approach.
+\cref{sec-dc-general-rec} introduces the notion of recursive constraints for enabling the verification of domain completeness in view of infinite constraints which describe recursive graph patterns.
+% \cref{sec-dc-general-gen} presents the generation of domain constraints from graph grammars such that domain completeness automatically holds for the derived constraints.
+% This can be used if the domain constraints are unknown or for checking against an existing set of domain constraints.
+Finally, in \cref{sec-dc-general-res} we consider the verification of domain completeness under restrictions of the domain type graph.
+This reflects the situation where only a subset of all constituents of the given domain is subjected to the verification.
+
+\section{Domain Completeness Problem \& Undecidability}
+\label{sec-dc-general}
+\input{sec-dc-general}
+
+\section{Verification of Domain Completeness}
+\label{sec-dc-verification}
+\input{sec-dc-verification}
+% \nn{DNF (dis. normal-form), nochmal nachschauen was passiert wenn max. 3 Statements hintereinander z.B. durch NAC}
+
+\section{Limitations}
+\label{sec-dc-general-lim}
+\input{sec-dc-general-lim}
+
+\section{Recursive Graph Constraints}
+\label{sec-dc-general-rec}
+\input{sec-dc-general-rec}
+
+\section{Domain Restrictions}
+\label{sec-dc-general-res}
+\input{sec-dc-general-res}
+
+\chapter{Domain Completeness of Model Transformations \& Model Synchronisations}
+\label{sec-dom-compl-mt-synch}
+
+\section{Domain Completeness of Model Transformations}
+\label{sec-dom-compl-mt}
+\input{sec-dom-compl-mt}
+
+\section{Domain Completeness of Model Synchronisations}
+\label{sec-dom-compl-synch}
+\input{sec-dom-compl-synch}
+
+\chapter{Further Applications}
+\label{sec-further-appl}
+
+\section{Completeness of Software Transformations}
+\label{sec-compl-software-trans}
+
+\subsection{Introduction to Software Transformations}
+\input{sec-compl-software-trans-i}
+
+\subsection{Software Transformations based on Triple Graph Grammars}
+\label{sec-compl-software-trans-tgg}
+\input{sec-compl-software-trans-tgg}
+
+\subsection{Completeness Problem of Software Transformations}
+\label{sec-compl-software-trans-prob}
+\input{sec-compl-software-trans-prob}
+
+\subsection{From EBNF Grammars to Attributed Type Graphs \& Graph Constraints}
+\label{sec-compl-software-trans-mapping}
+\input{sec-compl-software-trans-mapping}
+
+\subsection{Completeness of Software Transformations}
+\label{sec-compl-software-trans-completeness}
+\input{sec-compl-software-trans-completeness}
+
+\section{Completeness of Software Synchronisations}
+\label{sec-compl-software-synch}
+\input{sec-compl-software-synch}
+
+\section{Completeness of Static Semantics}
+\label{sec-compl-static-sem}
+\input{sec-compl-static-sem}
+
+\section{Completeness of Operational Semantics}
+\label{sec-compl-oper-sem}
+\input{sec-compl-oper-sem}
+
+\chapter{Conclusion, Related \& Future Work}
+\label{sec-conclusion}
+\input{sec-conclusion}
+
+% \addcontentsline{toc}{chapter}{Notes towards Test-Based Semantic Correctness of Model Transformations \& Model Synchronisations}
+% \label{sec-sem-cor}
+% \section*{Notes towards Test-Based Semantic Correctness of Model Transformations \& Model Synchronisations}
+% 
+% \begin{figure}[!tb]
+% \begin{center}
+% \includegraphics[width=.8\textwidth]{img/conclusion/test.pdf}
+% \end{center}
+% \caption{Test-Based Semantic Correctness of Model Transformations}
+% \label{fig:conclusion:test}
+% \end{figure}
+% 
+% This work contributes to the overall topic of test-based semantic correctness of model transformations and synchronisations in the sense that a method is provided for verifying the completeness of a given model transformation $\MT$ between domains $D_1$ and $D_2$.
+% If completeness of a given model transformation holds, then it is ensured that all models $M$ of source domain $D_1$ can be completely transformed via $\MT$ into models $M'$ in target domain $D_2$ and therefore, each model $M$ in $D_1$ can be simulated based on its (operational) semantics $\llbracket M \rrbracket$ and cross-checked with the simulation of model $M'$ in $D_2$ based on its (operational) semantics $\llbracket M' \rrbracket$ as depicted in \cref{fig:conclusion:test}.
+
+\appendix
+
+\chapter{Detailed Proofs}
+\input{sec-proofs}
+
+\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{alpha}
+\bibliography{article}
+
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\covers{\includepdf[fitpaper,noautoscale=false,offset=7mm 0mm]{cover/coverback.png}}
+
+\end{document}

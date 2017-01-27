@@ -1,0 +1,110 @@
+We assume that the constituents of a domain are given by a type graph whereas valid sentences in that domain are additionally restricted by a set of graph constraints.
+Thus, valid sentences in a domain are expressed by typed graphs as domain models that satisfy the given domain constraints.
+The domain-specific language (DSL) is given by all valid sentences in that domain, i.e., by all graphs typed over the domain type graph and that satisfy the domain constraints.
+
+\begin{definition}[(Domain-Specific) Languages over Graph Constraints, Grammars \& Type Graphs]
+\label{def:sec-dc-general:lang}
+Let $\TG$ be a type graph, $C=C_I \cup C_G$ be a set of nested graph constraints $C_I$ that are designated for initial satisfaction and $C_G$ that are designated for general satisfaction (all typed over $\TG$).
+Moreover, let $\GG=(S,P)$ be a graph grammar with start graph $S$ and productions $P$ (all typed over $\TG$).
+With $\Lang(\TG)$ we denote \emph{the language over type graph $\TG$}\index{language!$\Lang(\TG)$ over type graph} which is given by the set of all graphs that are typed over $\TG$.
+With $\Lang(\GG):=\{G \mid \exists S \Trans{*} G \text{ via } P\}$ we denote the \emph{language over ($\TG$) and grammar $\GG$}\index{language!$\Lang(\GG)$ over graph grammar} which is given by all graphs (typed over $\TG$) that are reachable from $S$ by transformation sequences via productions $P$.
+With $\Lang_I(C_I):=\{G \mid G \stackrel{I}{\models} C_I\}$ we denote the \emph{domain-specific language over ($\TG$) and constraints $C_I$}\index{language!$\Lang(C)$ over graph constraints}\index{language!domain-specific} which is given by all graphs (typed over $\TG$) that initially satisfy constraints $C_I$.
+With $\Lang(C_G):=\{G \mid G \models C_G\}$ we denote the \emph{domain-specific language over ($\TG$) and constraints $C_G$} which is given by all graphs (typed over $\TG$) that generally satisfy constraints $C_G$.
+We write $\Lang(C)$ short for $\Lang_I(C_I) \cap \Lang(C_G)$ and denote the \emph{domain-specific language over ($\TG$) and constraints $C$}.
+\envEndMarker
+\end{definition}
+
+\begin{example}[(Domain-Specific) Languages]
+\cref{sec-gt-gc,fig:sec-gc-gc:conditions} depicts the type graph $\TG$ of UML class diagrams as well as the constraint $\ac_P=\vee{i=(1,2)}(\exists(a\colon P \to C,\true))$ which claims that:
+\begin{enumerate}
+  \item For initial satisfaction of $\ac_P$ - There exists a \code{Class} in the diagram such that the class has a \code{Constr}uctor with visibility \code{Protected} or \code{Public}.
+  \item For general satisfaction of $\ac_P$ - For each class in the diagram it holds that the class has a \code{Constr}uctor with visibility \code{Protected} or \code{Public}.
+\end{enumerate}
+Graph $G$ in \cref{fig:sec-gc-gc:conditions} is typed over $\TG$, therefore $G \in \Lang(\TG)$.
+Moreover, graph $G$ both initially and generally satisfies $\ac_P$, i.e., $G \in \Lang_I(\{\ac_P\})$ and $G \in \Lang(\{\ac_P\})$.
+Furthermore, given type graph $\TG_\CD$, graph $\CD$ in \cref{sec-gt-graphs,fig:sec-gt-graphs:atg} typed over $\TG_\CD$ and the rules $P$ in \cref{sec-gt-trafo,ex:sec-gt-trafo:trafo} typed over $\TG_\CD$ with grammar $\GG=(\varnothing,P)$ and empty start graph $\varnothing$, then according to \cref{ex:sec-gt-trafo:trafo}, $\CD$ can be created by a transformation from $\varnothing$ via rules $P$, i.e., $\CD \in \Lang(\GG)$.
+\envEndMarker
+\end{example}
+
+We introduce the notion of domain completeness in view of model transformations and synchronisations based on TGGs.
+Thus, domain completeness means that all valid sentences in a domain are completely covered by the TGG.
+More precisely, given a domain type graph $\TG$, domain constraints $C$ and a graph grammar $\GG=(S,P)$ both typed over $\TG$, then domain completeness holds if $\Lang(C) \subseteq \Lang(\GG)$, i.e., the constraints $C$ are more restrictive than (or as restrictive as) grammar $\GG$.
+Thus, the domain completeness problem is defined in terms of a language inclusion problem.
+The underlying question to be answered is: ``Can all graphs that satisfy $C$ be created from $S$ by successively applying rules $P$?''.
+
+\begin{definition}[Domain Completeness (Problem)]
+\label{def:sec-dc-general:dcp}
+Given the languages $\Lang(C)$ and $\Lang(\GG)$ over domain graph constraints $C$ and grammar $\GG$, respectively, and common domain type graph $\TG$.
+\emph{Domain completeness}\index{domain completeness} holds if $\Lang(C) \subseteq \Lang(\GG)$.
+Thus, the \emph{domain completeness problem}\index{domain completeness!problem} is defined as follows: Does it hold that $\Lang(C) \subseteq \Lang(\GG)$?
+\envEndMarker
+\end{definition}
+
+The domain completeness problem for (non-deleting) graph grammars with nested application conditions turns out to be undecidable in general (and in particular, for (finite) typed graphs with injective matches only for rule applications) due to the expressiveness of nested conditions as application conditions for the productions in the grammars.
+This implies that the problem is also undecidable for derivative categories of graphs such as the (finitary) $\M$-adhesive category $(\cat{\AGraphs_\ATGI,\M})$ of (finite) typed attributed graphs (with node type inheritance) and with almost injective matches only.
+Based on the existing result for transforming constraints into right application conditions \cite{DBLP:journals/mscs/HabelP09}, we first show that sets of constraints $C$ can be transformed into left application conditions $\ac_L$ for productions $p=(L \gets K \to R)$ such that the satisfaction of $\ac_L$ by matches $m\colon L \to G$ coincides with the satisfaction of $C$ by $G$.
+This result is used for proving the undecidability in \cref{thm:sec-dc-general:undec1} afterwards.
+
+\begin{lemma}[Transformation of Constraints into Left Application Conditions]
+\label{lem:sce-ds-general:trafo_c_ac}
+Let $(\cat{C},\M)$ be an $\M$-adhesive category with $\E$-$\M$-factorisation and $\M$-initial object $I$.
+Then, there is \emph{a transformation $\LA$ from sets of conditions over $I$ into left application conditions}\index{graph constraint!into left application conditions} for productions, such that for all sets $C$ of conditions over $I$, all productions $p=(L \gets K \to R)$ and all matches $m\colon L \to G$ for some $G$ it holds that $m \models \LA(p,C)$ if and only if $G \models C$. 
+\envEndMarker
+\end{lemma}
+
+\begin{paragraph}{Construction}
+Given a production $p=(L \gets K \to R)$ and a set $C=(c_j)_{j \in J}$ of conditions $c_j$ over $I$, then the transformation $\LA(p,C):=\wedge_{j \in J}\text{A}(\overline{p},c_j)$ is defined by the transformation $\text{A}$ from conditions into right application conditions for $\overline{p}$ as given in Thm. 5 in \cite{DBLP:journals/mscs/HabelP09} together with a conjunction over all constraints $c_j \in C$ where $\overline{p}=(L \transB{\id_L} L \trans{\id_L} L)$.
+\end{paragraph}
+
+\begin{proof}
+By Thm. 5 in \cite{DBLP:journals/mscs/HabelP09}, for all conditions $c$ over $I$, all productions $\overline{p}=(L \gets K \to R)$ and all morphisms $m^*\colon R \to G$ it holds that $m^* \models \text{A}(\overline{p},c) \Leftrightarrow G \models c$ $^{(*^1)}$.
+This result can be directly transferred from weak adhesive HLR categories to $\M$-adhesive categories, since, only basic HLR properties and general categorical properties are used in the proofs.
+Let $C=(c_j)_{j \in J}$ be a set of conditions over $I$, $p=(L \gets K \to R)$ and $\overline{p}=(L \transB{\id_L} L \trans{\id_L} L)$ be productions and $m\colon L \to G$ be a match.
+$m \models \LA(p,C) \xLeftrightarrow{Def.\ \LA(p,C)} m \models \wedge_{j \in J} \text{A}(\overline{p},c_j) \xLeftrightarrow{Sat.} m \models \text{A}(\overline{p},c_j)$, for all $j \in J \xLeftrightarrow{(*^1)} G \models c_j$, for all $j \in J \xLeftrightarrow{Sat.} G \models C$.
+\end{proof}
+
+The properties that are enclosed by parentheses ``(property)'' are optional.
+
+\begin{theorem}[Undecidability of the Domain Completeness Problem]
+\label{thm:sec-dc-general:undec1}
+Let $C$ be a (finite) set of (finite) nested graph constraints (in $\M$-normal form) and $\GG=(S,P)$ be a (non-deleting) graph grammar with a (finite) set of productions $P$ (with start graph $S$ being the initial graph $\varnothing$) and (finite left) nested application conditions (in $\M$-normal form).
+Furthermore, let $\Lang(C)$ and $\Lang(\GG)$ be the languages over $C$ and $\GG$, respectively, and common type graph $\TG$.
+Then, \emph{the language inclusion problem $\Lang(C) \subseteq \Lang(\GG)$ is undecidable}\index{domain completeness!undecidability!with application conditions} in general and in particular in the (finitary) $\M$-adhesive category $(\cat{\Graphs_\TG,\M})$ ($(\cat{\Graphs_{\TG,\fin},\M_\fin})$) of (finite) graphs typed over (finite) type graph $\TG$ with $\M$-matching.
+\envEndMarker
+\end{theorem}
+
+\begin{proof}
+The proof is presented in \cref{sec-proofs:thm:sec-dc-general:undec1}.
+\end{proof}
+
+In addition to \cref{thm:sec-dc-general:undec1}, it turns out that the domain completeness problem is also undecidable for (non-deleting) graph grammars without application conditions due to the undecidability of the satisfiability problem of constraints.
+
+\begin{theorem}[Undecidability of the Domain Completeness Problem]
+\label{thm:sec-dc-general:undec2}
+Given the setting from \cref{thm:sec-dc-general:undec1} but $\GG$ be a graph grammar without application conditions.
+Then, \emph{$\Lang(C) \subseteq \Lang(\GG)$ is undecidable}\index{domain completeness!undecidability!without application conditions} in the same context.
+\end{theorem}
+
+\begin{proof}
+The undecidability is shown by a reduction from the undecidable satisfiability problem of finite graph constraints (cf. Cor. 9 in \cite{DBLP:journals/mscs/HabelP09}).
+Thus, based on the proof of \cref{thm:sec-dc-general:undec1}, for a given (finite) set of (finite) constraints $C$ in $\cat{C}$ in $\M$-normal form it is undecidable, whether there is a graph in $\cat{C}$ that satisfies $C$ $^{(*^1)}$.
+The reduction is given by a computable mapping from $C$ and $\TG$ to $\TG'$ and constraints $C'$ together with grammar $\GG=(S,P)$ with start graph $S$ and an empty set of productions $P=\varnothing$.
+Similarly to the proof of \cref{thm:sec-dc-general:undec1}, type graph $\TG'$ extends $\TG$ by node $\underline{T}$ with inclusion $i_t\colon \TG \to \TG'$, the obvious functor $F\colon \cat{C} \to \cat{C'}$, mapping $\overline{F}(C)$ and result $(*^3)$.
+The set of constraints $C'$ is given by $C'=\overline{F}(C) \cup \{c\}$ with constraint $c=\exists(\varnothing \to $\raisebox{-.25em}{\includegraphics[width=.038\textwidth]{img/software_trans/proof2.pdf}}$,\true)$.
+Thus, language $\Lang(C')$ contains all graphs in $\cat{C'}$ that have at least on node of type $\underline{T}$ and that satisfy all constraints in $\overline{F}(C)$.
+Language $\Lang(\GG)$ with $S=\varnothing$ contains the empty graph $S$ only.
+It remains to show that $C$ is satisfiable in $\cat{C}$ if and only if $\Lang(C') \not\subseteq \Lang(\GG)$ holds in $\cat{C'}$.
+Then, assuming the decidability of the language inclusion problem would imply the decidability of the satisfiability problem leading to a contradiction by $(*^1)$.
+\begin{itemize}
+  \item[``$\Rightarrow$''] There exists $G \in \cat{C}$ with $G \models C$.
+  Thus, there exists graph $G'$ in $\cat{C'}$ which is $F(G)$ extended by a single node \code{:\underline{T}} with $G' \models \overline{F}(C)$ by $(*^3)$ and furthermore, $G' \models c$ therefore, $G' \models C'$ and $G' \in \Lang(C')$.
+  However, $G' \not\in \Lang(\GG)$.
+  \item[``$\Leftarrow$''] By contradiction assume that $C$ is not satisfiable in $\cat{C}$, i.e., for all $G \in \cat{C}$, $G \not\models C$.
+  By $(*^3)$ it follows that for all $G' \in \cat{C'}$, $G' \not\models \overline{F}(C)$.
+  Thus, $\Lang(C')=\varnothing$ and therefore, $\Lang(C') \subseteq \Lang(\GG)$.
+\end{itemize}
+The set $C'$ is finite by construction of $\overline{F}(C)$ with $C$ being a finite set by assumption.
+Analogously, for all $c' \in \overline{F}(C)$, $c'$ is finite and in $\M$-normal form and furthermore, $c$ is finite and in $\M$-normal form.
+Thus, for all $c' \in C'$, $c'$ is finite and in $\M$-normal form.
+By $P=\varnothing$, grammar $\GG$ is trivially non-deleting, $P$ is finite, all application conditions are finite and in $\M$-normal form and we can restrict to $\M$-matching.
+\end{proof}

@@ -1,0 +1,430 @@
+% \newtheorem{example}{Example}[section]
+% \newtheorem{corollary}{Corollary}[section]
+% \newtheorem{definition}{Definition}[section]
+% \newtheorem{remark}{Remark}[section]
+% \newtheorem{proposition}{Proposition}[section]
+% \newtheorem{theorem}{Theorem}[section]
+% \newtheorem{lemma}{Lemma}[section]
+\numberwithin{example}{chapter}
+\numberwithin{corollary}{chapter}
+\numberwithin{definition}{chapter}
+\numberwithin{remark}{chapter}
+\numberwithin{proposition}{chapter}
+\numberwithin{theorem}{chapter}
+\numberwithin{lemma}{chapter}
+
+\newtheorem{fact}{Fact}[chapter]
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{claim}{Claim}[chapter]
+
+\newcommand{\mono}{\hookrightarrow}
+\newcommand{\monoL}{\hookleftarrow}
+
+% normal text in math mode
+\newcommand{\n}[1]{\textnormal{#1}}
+
+
+\tolerance=10000
+\newcommand\xqed[1]{%
+  \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill
+  \quad\hbox{#1}}
+\newcommand\envEndMarker{\xqed{$\triangle$}}
+\newcommand\envEndMarkerB{ $\triangle$}
+\newcommand\envEndMarkerProof{\xqed{$\Box$}}
+
+\newcommand\code[1]{\ensuremath{\mathsf{#1}}}
+
+
+% Put edit comments in a really ugly standout display
+\usepackage{ifthen}
+\usepackage{amssymb}
+\newboolean{showcomments}
+\setboolean{showcomments}{true} % toggle to show or hide comments
+\ifthenelse{\boolean{showcomments}}
+  {\newcommand{\nb}[2]{
+    \fcolorbox{gray}{yellow}{\bfseries%\sffamily
+		\scriptsize#1}
+    {\sf\small$\blacktriangleright$#2$\blacktriangleleft$}
+   }
+   \newcommand{\version}{\emph{\scriptsize$-$working$-$}}
+  }
+  {\newcommand{\nb}[2]{}
+   \newcommand{\version}{}
+  }
+
+\newcommand\fh[1]{\nb{Frank}{#1}}
+\newcommand\nn[1]{\nb{Nico}{#1}}
+\newcommand\sg[1]{\nb{Susann}{#1}}
+
+%%%%% TIKZ
+\definecolor{myblue}{RGB}{130,40,120}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
+\tikzstyle{normal}=[rectangle split, rectangle split parts=2,draw=black, text=black, fill=white]
+\tikzstyle{box}=[draw=gray]
+\tikzstyle{object}=[draw=myblue, rounded corners, fill=black!10, text centered]
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.pathmorphing}
+\tikzstyle{background rectangle}=[draw=black!50,fill=yellow!20,rounded corners=1ex]
+\tikzstyle{class}=[rectangle, draw=black, rounded corners, fill=white, text centered, text width=2.5cm]
+
+
+
+%%%%%%%%%%%%%%%% end TIKZ
+
+%%%%%%%%%%%% cleveref %%%%%%%%%%%
+\crefname{theorem}{Thm.}{Thms.} 
+\crefname{lemma}{Lem.}{Lemmas} 
+\crefname{fact}{Fact}{Facts}
+\crefname{example}{Ex.}{Examples}
+\crefname{definition}{Def.}{Defs.}
+\crefname{corollary}{Cor.}{Corollaries}
+\crefname{remark}{Rem.}{Rems.} 
+\crefname{figure}{Fig.}{Figs.} 
+\crefname{section}{Sec.}{Sects.} 
+\crefname{chapter}{Chap.}{Chapters} 
+\crefname{proposition}{Prop.}{Props.} 
+\crefname{remark}{Rem.}{Remarks.} 
+\crefname{part}{Part}{Parts} 
+\crefname{enumi}{Item}{Items}%
+\crefname{enumii}{Item}{Items}%
+\crefname{enumiii}{Item}{Items}%
+\crefname{enumiv}{Item}{Items}%
+\crefname{enumv}{Item}{Items}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\newcommand{\longversion}[1]{#1}
+\newcommand{\longversionMarker}[1]{%
+\longversion{%
+%\cbstart%
+#1%
+%\cbend%
+}}
+\newcommand{\shortversion}[1]{#1}
+\newcommand{\uncuttedversion}[1]{#1}
+
+
+%\newcommand\envEndMarker{\xqed{\ensuremath{\triangle}}}
+\newcommand{\cat}[1]{\ensuremath{\mathbf{#1}}\xspace}
+\newcommand{\OP}{\ensuremath{\mathit{OP}}}
+\newcommand{\Graphs}{\cat{Graphs}}
+\newcommand{\AGraphs}{\cat{AGraphs}}
+\newcommand{\ATrGraphs}{\cat{ATrGraphs}}
+\newcommand{\Merge}{\ensuremath{\mathrm{Merge}}\xspace}
+\newcommand{\Abstr}{\ensuremath{\mathrm{Abstr}}\xspace}
+\newcommand{\Inst}{\ensuremath{\mathrm{Inst}}\xspace}
+\newcommand{\SRC}{\ensuremath{\mathrm{S}}\xspace}
+\newcommand{\C}{\ensuremath{\mathrm{C}}\xspace}
+\newcommand{\T}{\ensuremath{\mathrm{T}}\xspace}
+\newcommand{\E}{\ensuremath{\mathcal{E}}\xspace}
+\newcommand{\EE}{\ensuremath{\mathrm{E}}\xspace}
+\newcommand{\M}{\mor{M}}
+\newcommand{\morO}{\mor{O}}
+\newcommand{\I}{\mor{I}}
+\newcommand{\mor}[1]{\ensuremath{{\cal #1}}}
+\newcommand{\dom}{\mathrm{dom}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\id}{\ensuremath{\mathit{id}}}
+
+\newcommand{\roundedYellowBoxW}[1]{
+\roundedYellowBox{%
+		\begin{minipage}{0.98\textwidth}%
+		\centering%
+		#1%
+		\end{minipage}%
+}
+}
+
+% tikz boxes around figures
+\newcommand{\roundedYellowBox}[1]{
+	\begin{tikzpicture}[show background rectangle]\node (box)
+	{	\hspace*{-6pt}%
+			#1%
+		\hspace*{-6pt}%
+	};
+	\end{tikzpicture}%
+}
+
+
+
+%\renewcommand{\floatpagefraction}{1.0}
+%\renewcommand{\topfraction}{1.0}
+%\renewcommand{\bottomfraction}{1.0}
+%\renewcommand{\textfraction}{0.0}
+
+\renewcommand{\textfraction}{0.0}
+\renewcommand{\floatpagefraction}{0.7}
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+\setcounter{totalnumber}{5}
+
+% Autoref
+\def\sectionautorefname{Sec.}
+\def\appendixautorefname{App.}
+\def\subsectionautorefname{Sec.}
+\def\figureautorefname{Fig.}
+\def\theoremautorefname{Thm.}
+\def\definitionautorefname{Def.}
+\def\remarkautorefname{Rem.}
+\def\exampleautorefname{Ex.}
+\def\constructionautorefname{Constr.}
+\def\factautorefname{Fact}
+
+
+
+\newcommand{\timestamp}{
+	\com{
+		{\small \hfill
+		\ddmmyyyydate \renewcommand{\dateseparator}{. }
+		\today\\\hfill
+		 \currenttime
+		 }
+	}
+}
+
+
+% ------------------------ Commentary
+\newcounter{comCounter}[page]
+\setlength{\marginparsep}{2.5mm}
+\setlength{\marginparwidth}{2.5cm}
+\newcommand{\comE}[1]{
+      \normalfont
+				\small{\thecomCounter})
+                #1				
+}
+
+\newcommand{\com}[1]{\stepcounter{comCounter}$^{\thecomCounter)}$
+	\marginpar[\flushleft \comE{#1}]{		
+        \flushleft
+		%\begin{tabular}{|l|}
+        \comE{#1}
+        %\end{tabular}
+		}
+	}
+
+% Uncomment the next command to make comments invisible.
+%\renewcommand{\com}[1]{}
+% --------------------------------END OF Commentary
+
+\renewcommand{\ttdefault}{cmr}
+
+%%%%%%%% Revisions for later Versions (toggle "%")
+\usepackage[normalem]{ulem}
+\newcommand{\new}[1]
+   {\textcolor{blue}{#1}} %in draft version: mark blue
+	 % {#1}                 %in final version: black text
+\newcommand{\old}[1]
+	 {\textcolor{red}{\sout{#1}}} %in draft version: mark red and strike out
+	% {}        %in final version: nothing
+
+% -------------------- END OF Commentary
+
+
+
+
+
+% Derivations
+% double-arrow transition
+\newcommand{\linefill}{	%
+	\cleaders
+	\hbox{$\smash{\mkern-2mu\mathord-\mkern-2mu}$}	%
+	\hfill
+	\vphantom{\lower1pt\hbox{$\rightarrow$}}	%
+	}
+\newcommand{\Linefill}{%
+	\cleaders
+	\hbox{$\smash{\mkern-2mu\mathord=\mkern-2mu}$}%
+	\hfill \vphantom{\hbox{$\Rightarrow$}}%
+} % left segment of extensible arrow, no ending
+\newcommand{\TrLinefill}{%
+	\cleaders
+	\hbox{$\smash{\mkern-2mu\mathord\equiv\mkern-2mu}$}%
+	\hfill \vphantom{\hbox{$\Rightarrow$}}%
+} % left segment of extensible arrow, no ending
+\newcommand{\xmid}[2][]{\stackrel{#2}{\linefill_{\vphantom{#1}}}}
+\newcommand{\xMid}[2][]{\stackrel{#2}{\Linefill_{\vphantom{#1}}}} % right segment of extensible arrow, no ending
+\newcommand{\xTrMid}[2][]{\stackrel{#2}{\TrLinefill_{\vphantom{#1}}}} % right segment of extensible arrow, no ending
+\newcommand{\xleftnoend}[1][]{\mathrel-_{\vphantom{#1}}\mkern-11mu}
+\newcommand{\xLeftnoend}[1][]{\mathrel=_{\vphantom{#1}}\mkern-8mu} % left segment of extensible arrow,arrow head
+\newcommand{\xTrLeftnoend}[1][]{\mathrel\equiv_{\vphantom{#1}}\mkern-8mu} % left segment of extensible arrow,arrow head
+\newcommand{\xrightnoend}[1][]{\mkern-11mu\mathrel-_{\vphantom{#1}}}
+\newcommand{\xRightnoend}[1][]{\mkern-8mu\mathrel=_{\vphantom{#1}}} % left segment of
+\renewcommand{\xrightarrow}[1][]{\mkern-11mu\rightarrow_{#1}}
+\renewcommand{\xleftarrow}[1][]{\leftarrow_{#1}\mkern-11mu}
+\renewcommand{\xRightarrow}[1][]{\mkern-8mu\Rightarrow_{#1}} % make arrow symbol
+\newcommand{\xRrightarrow}[1][]{\mkern-8mu\Rrightarrow_{#1}} % make arrow symbol
+\renewcommand{\xLeftarrow}[1][]{\Leftarrow_{#1}\mkern-8mu} % make arrow symbol
+\newcommand{\xmake}[1]{\mathrel{\lower1pt\hbox{$#1$}}} % single-arrow transition
+\newcommand{\Trans}[2][]{\xmake{\xLeftnoend[#1]\xMid[#1]{#2}\mkern-2mu\xRightarrow[#1]}}%
+\newcommand{\TransMT}{\Rrightarrow}%
+%\newcommand{\TransMT}[2][]{\xmake{\xLeftnoend[#1]\xMid[#1]{#2}\mkern-2mu\xRrightarrow[#1]}}%
+% \newcommand{\TrTrans}[2][]{\xmake{\xTrLeftnoend[#1]\xTrMid[#1]{#2}\xRrightarrow[#1]}}%
+\newcommand\restr[2]{{
+  \left.\kern-\nulldelimiterspace 
+  #1
+  \vphantom{\big|}
+  \right|_{#2} 
+  }}
+
+%\newcommand{\Trafo}[2]{\Trans{#1}{#2}}
+
+% single-arrow transition
+\newcommand{\trans}[2][]{\xmake{\xleftnoend[#1]\xmid[#1]{#2}\xrightarrow[#1]}}%
+
+% single-arrow transition backward
+\newcommand{\transB}[2][]{\xmake{\xleftarrow[#1] \xmid[#1]{#2}\xrightnoend[#1]}}%
+\newcommand{\TransB}[2][]{\xmake{\xLeftarrow[#1]\xMid[#1]{#2}\xRightnoend[#1]}}%
+
+
+% Spacing of arrows in xymatrix
+\newdir{ >}{{}*!/-10pt/@{>}}
+\newdir{->}{{}*!/-18pt/@{>}}
+\newdir{ _(}{{}*!/-7pt/@_{(}}
+\newdir{ (}{{}*!/-7pt/@^{(}}
+\newdir{-(}{{}*!/-15pt/@^{(}}
+\newdir{ )}{{}*!/-7pt/@_{(}}
+\newdir{>*}{{}*!/-4pt/@{>}*!/-5pt/{^*}}
+
+\newcommand{\ATG}{\ensuremath{\mathit{ATG}}\xspace}
+\newcommand{\ATGI}{\ensuremath{\mathit{ATGI}}\xspace}
+\newcommand{\PC}{\ensuremath{\mathit{PC}}\xspace}
+\newcommand{\AG}{\ensuremath{\mathit{AG}}\xspace}
+\newcommand{\GG}{\ensuremath{\mathit{GG}}\xspace}
+\newcommand{\AS}{\ensuremath{\mathit{AS}}\xspace}
+\newcommand{\Att}{\ensuremath{\mathit{Att}}\xspace}
+\newcommand{\SG}{\ensuremath{\mathit{SG}}\xspace}
+
+\newcommand{\Lang}{\ensuremath{\mathcal{L}}\xspace}
+\newcommand{\PILTOSPELL}{\ensuremath{\mathit{PIL2SPELL}}\xspace}
+\newcommand{\TRAFOS}{\ensuremath{\mathit{TRAFOS}}\xspace}
+\newcommand{\ac}{\ensuremath{\mathit{ac}}\xspace}
+\newcommand{\AC}{\ensuremath{\mathit{AC}}\xspace}
+\newcommand{\tExt}{\ensuremath{\mathit{tExt}}\xspace}
+\newcommand{\acext}{\ensuremath{\mathit{Ext}}\xspace}
+\newcommand{\inc}{\ensuremath{\mathit{inc}}\xspace}
+\newcommand{\CLG}{\ensuremath{\mathit{CLG}}\xspace}
+\newcommand{\CG}{\ensuremath{\mathit{CG}}\xspace}
+\newcommand{\LTS}{\ensuremath{\mathit{LTS}}\xspace}
+\newcommand{\IO}{\ensuremath{\mathit{IO}}\xspace}
+\newcommand{\DC}{\ensuremath{\mathit{DC}}\xspace}
+\newcommand{\DG}{\ensuremath{\mathit{DG}}\xspace}
+\newcommand{\DCG}{\ensuremath{\mathit{DCG}}\xspace}
+\newcommand{\TGG}{\ensuremath{\mathit{TGG}}\xspace}
+\newcommand{\TS}{\ensuremath{\mathit{TS}}\xspace}
+\newcommand{\MT}{\ensuremath{\mathit{MT}}\xspace}
+\newcommand{\fPpg}{\ensuremath{\mathit{fPpg}}\xspace}
+\newcommand{\bPpg}{\ensuremath{\mathit{bPpg}}\xspace}
+\newcommand{\Synch}{\ensuremath{\mathit{Synch}}\xspace}
+\newcommand{\MSynch}{\ensuremath{\mathit{MSynch}}\xspace}
+\newcommand{\proj}{\ensuremath{\mathit{proj}}\xspace}
+\newcommand{\False}{\ensuremath{\mathbf{F}}\xspace}
+\newcommand{\True}{\ensuremath{\mathbf{T}}\xspace}
+%\newcommand{\Att}{\ensuremath{\mathit{Att}}\xspace}
+\newcommand{\TR}{\ensuremath{\mathit{TR}}\xspace}
+\newcommand{\VL}{\ensuremath{\mathit{VL}}\xspace}
+\newcommand{\TG}{\ensuremath{\mathit{TG}}\xspace}
+\newcommand{\tr}{\ensuremath{\mathit{tr}}\xspace}
+\newcommand{\FT}{\ensuremath{\mathit{FT}}\xspace}
+\newcommand{\BT}{\ensuremath{\mathit{BT}}\xspace}
+\newcommand{\true}{\textbf{true}\xspace}
+\newcommand{\false}{\textbf{false}\xspace}
+\newcommand{\TGT}{\textsc{TGT}\xspace}
+\newcommand{\MM}{\ensuremath{\mathit{MM}}\xspace}
+\newcommand{\UD}{\ensuremath{\mathit{UD}}\xspace}
+\newcommand{\Ppg}{\ensuremath{\mathit{Ppg}}\xspace}
+\newcommand{\PPG}{\ensuremath{\mathit{PPG}}\xspace}
+\newcommand{\CC}{\ensuremath{\mathit{CC}}\xspace}
+
+\newcommand{\aln}{\ensuremath{\mathit{Aln}}\xspace}
+\newcommand{\del}{\ensuremath{\mathit{Del}}\xspace}
+\newcommand{\fAln}{\ensuremath{\mathit{fAln}}\xspace}
+\newcommand{\fAdd}{\ensuremath{\mathit{fAdd}}\xspace}
+\newcommand{\MF}{\ensuremath{\mathit{MF}}\xspace}
+\newcommand{\add}{\ensuremath{\mathit{Add}}\xspace}
+\newcommand{\ext}{\ensuremath{\mathit{Ext}}\xspace}
+\newcommand{\marking}{\ensuremath{\mathit{mark}}\xspace}
+\newcommand{\markinguc}{\ensuremath{\mathit{Mark}}\xspace}
+\newcommand{\ob}{\ensuremath{\mathit{Ob}}\xspace}
+\newcommand{\morB}{\ensuremath{\mathit{Mor}}\xspace}
+\newcommand{\fin}{\ensuremath{\mathit{fin}}\xspace}
+\newcommand{\TF}{\ensuremath{\mathit{\mathcal{TF}}}\xspace}
+\newcommand{\LHS}{\ensuremath{\mathit{LHS}}\xspace}
+\newcommand{\RHS}{\ensuremath{\mathit{RHS}}\xspace}
+\newcommand{\NAC}{\ensuremath{\mathit{NAC}}\xspace}
+\newcommand{\Der}{\ensuremath{\mathit{Der}}\xspace}
+\newcommand{\Rel}{\ensuremath{\mathit{Rel}}\xspace}
+\newcommand{\GS}{\ensuremath{\mathit{GS}}\xspace}
+\newcommand{\CD}{\ensuremath{\mathit{CD}}\xspace}
+\newcommand{\RDBM}{\ensuremath{\mathit{RDBM}}\xspace}
+\newcommand{\Corr}{\ensuremath{\mathit{Corr}}\xspace}
+\newcommand{\Fin}{\ensuremath{\mathit{Fin}}\xspace}
+\newcommand{\Paths}{\ensuremath{\mathit{Paths}}\xspace}
+\newcommand{\paths}{\ensuremath{\mathit{path}}\xspace}
+\newcommand{\LA}{\ensuremath{\mathit{LA}}\xspace}
+\newcommand{\type}{\ensuremath{\mathit{type}}\xspace}
+\newcommand{\Pset}{\mor{P}}
+\newcommand{\DSIG}{\ensuremath{\mathit{DSIG}}\xspace}
+\newcommand{\Restr}{\ensuremath{\mathit{Restr}}\xspace}
+\newcommand{\der}{\ensuremath{\mathit{der}}\xspace}
+\newcommand{\NC}{\ensuremath{\mathit{NC}}\xspace}
+\newcommand{\iter}{\ensuremath{\mathit{it}}\xspace}
+\newcommand{\cond}{\ensuremath{\mathit{cond}}\xspace}
+\newcommand{\GTS}{\ensuremath{\mathit{GTS}}\xspace}
+\newcommand{\EBNF}{\ensuremath{\mathit{EBNF}}\xspace}
+
+\newcommand{\comBlockArgs}[2]{
+\noindent\fbox{~~TODO~~}\fbox{#1}
+\\
+\noindent\fbox{\parbox{\columnwidth}{#2}} }
+
+\newcommand{\comBlock}[1]{
+\noindent\fbox{~~TODO~~}
+\\
+\noindent\fbox{\parbox{\columnwidth}{#1}} }
+
+\newcommand{\quotient}[2]{\raisebox{0em}{$#1$}\raisebox{-.2em}{$\mid$}\raisebox{-.4em}{$#2$}}
+
+
+
+
+\definecolor{darkblue}{rgb}{0,0,0.6}
+\definecolor{darkred}{rgb}{0.6,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0.2}
+\definecolor{grey}{rgb}{0.5,0.5,0.5}
+\definecolor{darkgrey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.95,0.95,0.95}
+\definecolor{violett}{rgb}{0.5,0,0.33}
+
+\lstdefinelanguage{pseudocode}{
+  basicstyle=\footnotesize,
+  linewidth=14cm
+}
+
+\lstset{ %
+  linewidth=7cm,
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\scriptsize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{black}\hookrightarrow\space\space\space}},
+  captionpos=b,                    % sets the caption-position to bottom
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  %keywordstyle=\color{blue},       % keyword style
+  %language=Octave,                 % the language of the code
+  otherkeywords={class,:,new,print,read,end,if,then,goto,null,terminal},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  %numberstyle=\tiny%\color{mygray}, % the style that is used for the line-numbers
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}

@@ -1,0 +1,53 @@
+%  ****************************************
+%  *            PAGE LAYOUT               *
+%  ****************************************
+%
+% All margin dimensions measured from a point one inch from top and side
+% of page.  Dimensions shrink by about 2 percent
+
+% DRIVER MARGINS: change these to shift the complete page image as a whole
+% on the page without modifying the layout
+
+\voffset        0pt      % does not have to be -0.65in  since topmargin is -ve
+\hoffset        20pt
+
+% SIDE MARGINS:
+   \oddsidemargin  -0.1in   %  Note that \oddsidemargin = \evensidemargin
+   \evensidemargin -0.1in
+
+% VERTICAL SPACING:
+                         % Top of page:
+\topmargin -30pt         %    Nominal distance from top of page to top
+                         %    of box containing running head.
+\headheight 12pt         %    Height of box containing running head.
+\headsep 25pt            %    Space between running head and text.
+% \topskip = 10pt        %    '\baselineskip' for first line of page.
+                         % Bottom of page:
+\footskip 40pt           %    Distance from baseline of box containing
+                         %    foot to baseline of last line of text.
+
+
+% DIMENSION OF TEXT:
+
+\textheight 9.125in        % Height of text (including footnotes and
+                         % figures, excluding running head and foot).
+\textwidth 420pt         % Width of text line.
+                         % For two-column mode:
+\columnsep 0.25in           %    Space between columns
+\columnseprule 0pt       %    Width of rule between columns.
+
+
+
+% FLOATS: (a float is something like a figure or table)
+%
+%  FOR FLOATS ON A TEXT PAGE:
+%
+%    ONE-COLUMN MODE OR SINGLE-COLUMN FLOATS IN TWO-COLUMN MODE:
+\floatsep 11pt plus 2pt minus 2pt        % Space between adjacent floats
+                                         % moved to top or bottom of
+                                         % text page.
+\textfloatsep 6pt plus 2pt minus 2pt     % Space between main text and
+                                         % floats at top or bottom of
+                                         % page.
+\intextsep 6pt plus 2pt minus 2pt        % Space between in-text figures
+                                         % and text.

@@ -1,0 +1,19 @@
+Basically, model synchronisations $\MSynch\colon \Delta_{D_1} \to \Delta_{D_2}$ are performed based on model transformations where model updates $\delta \in \Delta_{D_1}$ in domain $D_1$ are propagated (mapped) to (model updates $\delta' \in \Delta_{D_2}$ in) domain $D_2$ by performing model transformations.
+Therefore, the classification of model transformations from \cref{sec-gen-intro-mt} can also be applied to model synchronisations, i.e., model synchronisations may be
+\begin{enumerate*}
+\item endogenous or exogenous,
+\item horizontal or vertical,
+\item based on textual or visual transformation specifications,
+\item based on declarative or operational transformation specifications, and
+\item propagations of updates from model-to-model, model-to-text, text-to-model or text-to-text.
+\end{enumerate*}
+
+According to \cref{fig:sec-gen-intro-msynch:mt_msynch} (b), a model update in some domain $D$ relates model $M_1 \in \Lang(D)$ from before the update with model $M_2 \in \Lang(D)$ from after performing the update and therefore, the update documents the changes to $M_1$ which have led to $M_2$.
+Thus, a model update relates models that are expressed in the same DSL $\Lang(D)$, i.e., models $M_1$ and $M_2$ conform to the same meta-model in domain $D$.
+\cref{fig:sec-gen-intro-msynch:mt_msynch} (c) illustrates the execution of a model synchronisation that takes a model update $\delta$ in source domain $D_1$ from model $M_1$ to model $M_2$ as input together with a correspondence (\code{Corr}) which interrelates model $M_1$ with model $M'_1$ in target domain $D_2$ to which the update should be propagated.
+The execution outputs an update $\delta'$ in target domain $D_2$ from model $M'_1$ to model $M'_2$ together with a correspondence (\code{Corr'}) which relates model $M_2$ with model $M'_2$.
+The model synchronisation (MSynch) is performed based on executing the model transformation specification.
+
+According to \cref{sec-gen-intro-mt}, we focus on model-to-model synchronisations based on TGGs that allow visual, declarative transformation specifications.
+We review basic concepts and notions in \cref{sec-tgg,sec-msynch-tgg}.
+Beside the model-to-model propagation of model updates from UML class diagrams to relational database models in \cref{sec-msynch-tgg}, we present software synchronisations, i.e., text-to-model(text) propagations of updates from source code to visual models (or source code again) in \cref{sec-compl-software-synch}.
